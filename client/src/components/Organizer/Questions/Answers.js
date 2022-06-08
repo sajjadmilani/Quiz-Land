@@ -4,17 +4,20 @@ const Answers = ({ answersList, setAnswersList, type }) => {
 
   const changeHandler = (index, value) => {
     console.log(answersList[index], index, value);
-    setAnswersList(
-      ...answersList,
-      answersList[index] = { text: "test" }
-    );
+    const newAnswersList = [...answersList];
+    newAnswersList[index] = { text: value };
+    setAnswersList(newAnswersList);
   };
 
   return <Wrapper>
     {answersList?.map((answer, index) => {
       return <AnswerContainer>
-        {answersList.length > 1 && <Correct type="radio" name="answer" defaultChecked={answer.isCorrect} />}
-        <Answer value={answer.text} onChange={(ev) => changeHandler(index, ev.target.value)} ></Answer>
+
+        {answersList.length > 1 && <CorrectContainer>
+          <Correct type="radio" name="answer" onChange={(ev) => changeHandler(index, ev.target.value)} id={index} checked={answer.isCorrect} /><label for={index}>Correct answer</label>
+        </CorrectContainer>}
+
+        <Answer value={answer.text} onChange={(ev) => changeHandler(index, ev.target.value)} placeholder="Type an answer option here" disabled={type === "TrueFalse"}></Answer>
       </AnswerContainer >;
     })}
   </Wrapper >;
@@ -22,15 +25,30 @@ const Answers = ({ answersList, setAnswersList, type }) => {
 const Wrapper = styled.div`
 text-align: center;
 width: 100%;
+
+display: grid;
 height: auto;
-div{
-  padding:20px;
-  border:1px solid #ccc;
+gap:5px;
+margin-top:10px;
+grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+@media (max-width: 1000px) {
+  height: fit-content;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    width: 100%
 }
 `;
 const AnswerContainer = styled.div`
   border-radius:10px;
+  box-sizing: border-box;
   display: flex;
+  height: fit-content;
+  flex-direction: column;
+  height:200px;
+  @media (max-width: 1000px) {
+    width: 100%;
+    height: auto;
+  }
+
   &:nth-of-type(1){
     background-color: #2D70AE;
   }
@@ -45,11 +63,9 @@ const AnswerContainer = styled.div`
   }
 `;
 const Correct = styled.input`
-
   height: 30px;
   width: 30px;
   margin: 0;
-
   &:checked {
     span {
       background: var(--color-alabama-crimson);
@@ -58,10 +74,37 @@ const Correct = styled.input`
     }
   }
 `;
+const CorrectContainer = styled.div`
+    display: flex;
+    border: none;
+    padding: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    label{
+      margin-left:10px;
+      color:white;
+      font-size:18px;
+      width: 100%;
+      text-align: left;
+    }
+`;
+
 const Answer = styled.textarea`
   width:100%;
   padding:10px 20px;
   font-size: 22px;
-  background:rgba(255,255,255,0.5)
+  height: fit-content;
+  border:none;
+  box-sizing: border-box;
+  resize: none;
+  background: rgba(255,255,255,0.7);
+  height:200px;
+  @media (max-width: 1000px) {
+    height: auto;
+  }
+  &:disabled{
+    background-color: rgba(0,0,0,0.2);
+    color:white;
+  }
 `;
 export default Answers;
