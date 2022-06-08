@@ -1,16 +1,18 @@
 const fetch = require('node-fetch');
+const { decode } = require('html-entities');
 
 const AnwersCreator = (correctAnswer, incorrectAnswers) => {
   const answers = [];
   incorrectAnswers.forEach((answer) => {
-    answers.push({ text: answer, isCorrect: false });
+    answers.push({ text: decode(answer, { level: 'html5' }), isCorrect: false });
   });
-  answers.push({ text: correctAnswer, isCorrect: true });
+  answers.push({ text: decode(correctAnswer, { level: 'html5' }), isCorrect: true });
   return answers.sort(() => Math.random() - 0.5);
 };
 
 const getAMultiChoice = async (req, res) => {
-  await fetch("https://the-trivia-api.com/api/questions?categories=science,arts_and_literature&limit=1")
+  const difficulty = req.query.difficulty;
+  await fetch(`https://the-trivia-api.com/api/questions?difficulty=${difficulty}&limit=1`)
     .then(res => res.json())
     .then(data => {
       const questionData = data[0];
@@ -27,25 +29,31 @@ const getAMultiChoice = async (req, res) => {
 };
 
 const getATrueFalse = async (req, res) => {
-  await fetch("https://opentdb.com/api.php?amount=1&type=boolean")
+  const difficulty = req.query.difficulty;
+  await fetch(`https://opentdb.com/api.php?amount=1&type=boolean&difficulty=${difficulty}`)
     .then(res => res.json())
     .then(data => {
 
       const questionData = data.results[0];
+      console.log(decode(questionData.question, { level: 'html5' }));
       randomizeAnswer = AnwersCreator(questionData.correct_answer, questionData.incorrect_answers);
       delete questionData.correct_answer;
       delete questionData.incorrect_answers;
       res.status(200).json({
         status: 200, data: {
-          ...questionData,
-          answers: randomizeAnswer
+          category: questionData.category,
+          difficulty: questionData.difficulty,
+          question: decode(questionData.question, { level: 'html5' }),
+          answers: decode(randomizeAnswer),
+
         }
       });
     });
 };
 
 const getAQuestion = async (req, res) => {
-  await fetch("https://the-trivia-api.com/api/questions?limit=1")
+  const difficulty = req.query.difficulty;
+  await fetch(`https://the-trivia-api.com/api/questions?difficulty=${difficulty}&limit=1`)
     .then(res => res.json())
     .then(data => {
       const questionData = data[0];

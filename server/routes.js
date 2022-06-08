@@ -1,3 +1,4 @@
+const { getCategories } = require('./handlers/categoryHandler');
 const {
   getAMultiChoice,
   getATrueFalse,
@@ -9,6 +10,7 @@ router.get("/api/getRandom/MultiChoice", getAMultiChoice);
 router.get("/api/getRandom/TrueFalse", getATrueFalse);
 router.get("/api/getRandom/Question", getAQuestion);
 
+router.get("/api/getCategories", getCategories);
 router.get("*", (req, res) => {
   res.status(404).json({
     status: 404,

@@ -30,6 +30,7 @@ const Loader = styled.div`
 width: 40px;
 position: relative;
 height: 40px;
+z-index: 10;
 margin: auto;
   &::before, &::after{
   content: '';
