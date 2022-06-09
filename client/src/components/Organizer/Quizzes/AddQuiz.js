@@ -1,30 +1,19 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import 'tippy.js/dist/tippy.css';
 import Organizer from '..';
 import Loading from '../../Loading';
-
-
-const initialAnswers = (type) => {
-  switch (type) {
-    case "MultiChoice":
-      return [
-        { text: "", isCorrect: false },
-        { text: "", isCorrect: false },
-        { text: "", isCorrect: false },
-        { text: "", isCorrect: false }];
-    case "TrueFalse":
-      return [{ text: "True", isCorrect: false }, { text: "False", isCorrect: false }];
-    default:
-      return [{ text: "", isCorrect: true }];
-  }
-};
+import { useNavigate } from 'react-router-dom';
 
 const AddQuiz = () => {
+  const { user } = useAuth0();
   const [categories, setCategories] = useState([]);
+  const [name, setName] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [status, setStatus] = useState("idle");
 
+  const navigate = useNavigate();
   useEffect(() => {
     setStatus("loading");
     fetch(`/api/getCategories`)
@@ -35,11 +24,23 @@ const AddQuiz = () => {
       });
   }, []);
 
-
+  const submitHandler = () => {
+    console.log(name, selectedCategory, user);
+    fetch("/api/quiz", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ category: selectedCategory, name, user })
+    })
+      .then(res => res.json())
+      .then(data =>
+        navigate("/organizer/add-question/" + data.data.insertedData)
+      );
+  };
 
   return <>
     <Organizer>
-
       {status === "loading" && <Loading />}
       {status === "idle" && <>
         <Wrapper>
@@ -48,20 +49,19 @@ const AddQuiz = () => {
           </Header>
 
           <Container>
-            <Name type="text" placeholder="Name of quiz..." />
+            <Name type="text" value={name} placeholder="Name of quiz..." onChange={(ev) => setName(ev.target.value)} />
             <Title>Choose a category:</Title>
             <Catogories>
               {categories.map((category) => {
                 return <Category onClick={() => setSelectedCategory(category)} selected={selectedCategory === category}>{category}</Category>;
               })}
-
             </Catogories>
 
           </Container>
 
           <Footer>
             <Buttons>
-              <Submit>Save</Submit>
+              <Submit onClick={submitHandler}>Save</Submit>
             </Buttons>
           </Footer>
         </Wrapper></>}
