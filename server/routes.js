@@ -15,6 +15,9 @@ router.post("/api/quiz", addQuiz);
 
 
 router.get("/api/getCategories", getCategories);
+
+router.post("/api/quiz", addQuiz);
+
 router.get("*", (req, res) => {
   res.status(404).json({
     status: 404,

@@ -21,7 +21,7 @@ const mongoCreate = async (collectionName, query) => {
     let result = null;
     Array.isArray(query) ?
         result = await db.collection(collectionName).insertMany(query) :
-        result = await db.collection(collectionName).insertOne({ ...query, "createtime": new Timestamp() });
+        result = await db.collection(collectionName).insertOne(query);
     //------------------------------------------------------------------------------------------
 
     //Close client
