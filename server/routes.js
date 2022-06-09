@@ -11,6 +11,9 @@ router.get("/api/getRandom/MultiChoice", getAMultiChoice);
 router.get("/api/getRandom/TrueFalse", getATrueFalse);
 router.get("/api/getRandom/Question", getAQuestion);
 
+router.post("/api/quiz", addQuiz);
+
+
 router.get("/api/getCategories", getCategories);
 
 router.post("/api/quiz", addQuiz);

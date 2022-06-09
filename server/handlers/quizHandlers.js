@@ -1,5 +1,6 @@
 const { mongoCreate, mongoRead } = require('../dbHelpers');
 
+
 const randomString = (length) => {
   var result = '';
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -33,6 +34,7 @@ const addQuiz = async (req, res) => {
   const result = await mongoCreate("quizzes", query);
   console.log(result);
   res.status(200).json({ status: 200, data: { id: result.insertedId, joinCode: randomJoinCode } });
+
 };
 
 module.exports = { addQuiz };
