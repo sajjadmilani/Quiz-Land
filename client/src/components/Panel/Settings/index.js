@@ -10,41 +10,44 @@ const Settings = () => {
   const { user } = useAuth0();
   const [profile, setProfile] = useState({});
   const [status, setStatus] = useState("idle");
-  const { id } = useParams();
+
 
   useEffect(() => {
-    //setStatus("loading");
-    fetch(`/api/quiz/${id}`)
-      .then(res => res.json())
-      .then(data => {
-
-        console.log(data.data);
-        setStatus("idle");
-      });
-  }, []);
+    setStatus("loading");
+    if (user) {
+      fetch(`/api/user/${user.sub}`)
+        .then(res => res.json())
+        .then(data => {
+          setProfile(data.data);
+          setStatus("idle");
+        });
+    }
+  }, [user]);
 
   return <Organizer>
     {status === "loading" && <Loading />}
     {status === "idle" && <>
       <Wrapper>
         <Header>
-          <QuizLink>http://localhost:3000/join/</QuizLink>
           <PageTitle>
-            <JoinCode></JoinCode>
+            Profile
           </PageTitle>
         </Header>
 
         <Container>
+          <Label>Name:</Label>
+          <Input value={profile.given_name} />
           <p>Category: </p>
           stats will be here...
         </Container>
 
         <Footer>
-          <AddQuestion to={`/organizer/question/add/quiz/${id}`}>New Question</AddQuestion>
+
           <Buttons>
             <Delete>Delete</Delete>
             <Start>Start</Start>
           </Buttons>
+
         </Footer>
       </Wrapper></>}
   </Organizer>;
@@ -144,11 +147,20 @@ const Container = styled.div`
   box-sizing: border-box;
   height: fit-content;
   display: flex;
-  flex-direction: column;
-  align-content: center;
-  align-items: flex-start;
-`;
 
+`;
+const Label = styled.label`
+padding:12px;
+box-sizing: border-box;
+font-size:18px;
+
+`;
+const Input = styled.input`
+padding:12px;
+box-sizing: border-box;
+font-size:18px;
+width: 100%;
+`;
 const Footer = styled.div`
   display: flex;
   justify-content: space-between;

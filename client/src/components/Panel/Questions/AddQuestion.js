@@ -6,6 +6,7 @@ import 'tippy.js/dist/tippy.css';
 import Loading from "../../Loading";
 import Organizer from '..';
 import Button from '../Button';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const initialAnswers = (type) => {
   switch (type) {
@@ -23,6 +24,7 @@ const initialAnswers = (type) => {
 };
 
 const AddQuestion = () => {
+  const { id } = useParams();
   const [question, setQuestion] = useState("");
   const [type, setType] = useState("MultiChoice");
   const [answers, setAnswers] = useState(initialAnswers(type));
@@ -30,6 +32,7 @@ const AddQuestion = () => {
   const [time, setTime] = useState("20 seconds");
   const [point, setPoint] = useState(1);
   const [difficulty, setDifficulty] = useState("easy");
+  const navigate = useNavigate();
   const randomHandler = () => {
     if (type === "") { return; }
     setStatus("loading");
@@ -49,6 +52,23 @@ const AddQuestion = () => {
 
   };
 
+  const submitHandler = () => {
+    fetch("/api/question", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        quiz: id,
+        type,
+        difficulty,
+        question,
+        answers
+      })
+    })
+      .then(res => res.json())
+      .then(data => navigate(`/panel/quiz/${id}/edit`));
+  };
   return <Organizer>
     <Wrapper>
       <Header>
@@ -136,7 +156,7 @@ const AddQuestion = () => {
         </Options>
         <Buttons>
           <Cancel>Cancel</Cancel>
-          <Submit>Save</Submit>
+          <Submit onClick={submitHandler}>Save</Submit>
         </Buttons>
       </Footer>
     </Wrapper>

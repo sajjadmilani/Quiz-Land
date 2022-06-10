@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import 'tippy.js/dist/tippy.css';
 import Organizer from '..';
 import Loading from '../../Loading';
+import QuestionItem from './QuesionItem';
 
 const Quiz = () => {
   const { user } = useAuth0();
@@ -29,26 +30,31 @@ const Quiz = () => {
       {status === "loading" && <Loading />}
       {status === "idle" && <>
         <Wrapper>
-          <Header>
-            <QuizLink>http://localhost:3000/join/{quiz.joinCode}</QuizLink>
-            <PageTitle>
-              <p>{quiz.name}</p>
-              <JoinCode>{quiz.joinCode}</JoinCode>
-            </PageTitle>
-          </Header>
+          <QuizContainer>
+            <Header>
+              <QuizLink>http://localhost:3000/join/{quiz.joinCode}</QuizLink>
+              <PageTitle>
+                <p>{quiz.name}</p>
+                <JoinCode>{quiz.joinCode}</JoinCode>
+              </PageTitle>
+            </Header>
 
-          <Container>
-            <p>Category: {quiz.category}</p>
-            stats will be here...
-          </Container>
+            <Container>
+              <p>Category: {quiz.category}</p>
+              stats will be here...
+            </Container>
 
-          <Footer>
-            <AddQuestion to={`/organizer/question/add/quiz/${id}`}>New Question</AddQuestion>
-            <Buttons>
-              <Delete>Delete</Delete>
-              <Start>Start</Start>
-            </Buttons>
-          </Footer>
+            <Footer>
+              <AddQuestion to={`/panel/question/add/quiz/${id}`}>New Question</AddQuestion>
+              <Buttons>
+                <Delete>Delete</Delete>
+                <Start>Start</Start>
+              </Buttons>
+            </Footer>
+          </QuizContainer>
+          {quiz.questions?.map((question, index) => {
+            return <QuestionItem id={question.questionId} index={index} />;
+          })}
         </Wrapper></>}
 
     </Organizer>
@@ -58,10 +64,13 @@ const Quiz = () => {
 const Wrapper = styled.div`
   max-width: 900px;
   margin:auto;
-  background-color:#FFFFFF;
+
   box-sizing: border-box;
 `;
-
+const QuizContainer = styled.div`
+  background-color: #FFFFFF;
+  box-shadow: 1px 1px 5px 1px #cccccc;
+`;
 const Header = styled.div`
   display: flex;
   padding-top:50px;
@@ -143,6 +152,7 @@ const Container = styled.div`
   width: 100%;
   padding:50px;
   padding-top: 10px;
+  
   position: relative;
   box-sizing: border-box;
   height: fit-content;

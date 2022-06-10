@@ -37,7 +37,7 @@ const Quizzes = () => {
               </Container>
               <Footer>
                 <Buttons>
-                  <Edit to={`/organizer/quiz/${quiz._id}/edit`}>Edit</Edit>
+                  <Edit to={`/panel/quiz/${quiz._id}/edit`}>Edit</Edit>
                 </Buttons>
               </Footer>
             </Quiz>;
