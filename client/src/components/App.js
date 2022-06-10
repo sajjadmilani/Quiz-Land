@@ -1,11 +1,16 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './Pages/Home';
 import About from './Pages/About';
-import NavBar from './Pages/Header/NavBar';
 import GlobalStyles from './GlobalStyles';
-import AddQuestion from './Organizer/Questions/AddQuestion';
-import AddQuiz from './Organizer/Quizzes/AddQuiz';
+import AddQuestion from './Panel/Questions/AddQuestion';
+import AddQuiz from './Panel/Quizzes/AddQuiz';
+import Quiz from './Panel/Quizzes/Quiz';
+import Quizzes from './Panel/Quizzes';
+import Organizer from './Panel';
+import Settings from './Panel/Settings';
+
 const App = () => {
+
   return (
     <Router>
       <GlobalStyles />
@@ -14,8 +19,12 @@ const App = () => {
         <Route exact path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/about" element={<About />} />
-        <Route path="/organizer/add-question" element={<AddQuestion />} />
-        <Route path="/organizer/add-quiz" element={<AddQuiz />} />
+        <Route path="/panel/settings" element={<Settings />} />
+        <Route exact path="/panel" element={<Organizer />} />
+        <Route exact path="/panel/quizzes" element={<Quizzes />} />
+        <Route exact path="/panel/quiz/add" element={<AddQuiz />} />
+        <Route exact path="/panel/question/add/quiz/:id" element={<AddQuestion />} />
+        <Route path="/panel/quiz/:id/edit" element={<Quiz />} />
       </Routes>
       {/* <Footer /> */}
     </Router>

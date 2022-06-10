@@ -9,12 +9,12 @@ const LeftBar = () => {
     <Container>
       <Logo>Quiz Land</Logo>
       <Name>Sajjad Milani</Name>
-      <Button title="Create a Quiz" clickHandler={() => navigate("/organizer/add-quiz")} />
+      <Button title="Create a Quiz" clickHandler={() => navigate("/panel/quiz/add")} />
     </Container>
     <Nav>
-      <NavItem to="/">Quizzes</NavItem>
+      <NavItem to="/panel/quizzes">Quizzes</NavItem>
       <NavItem to="/">Reports</NavItem>
-      <NavItem to="/">Settings</NavItem>
+      <NavItem to="/panel/settings">Settings</NavItem>
       <NavItem to="/">Log out</NavItem>
     </Nav>
   </Wrapper>;
