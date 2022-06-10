@@ -3,9 +3,18 @@ import styled from 'styled-components';
 const Answers = ({ answersList, setAnswersList, type }) => {
 
   const changeHandler = (index, value) => {
-    console.log(answersList[index], index, value);
     const newAnswersList = [...answersList];
-    newAnswersList[index] = { text: value };
+    newAnswersList[index] = { ...newAnswersList[index], text: value };
+    setAnswersList(newAnswersList);
+  };
+
+  const selectHandler = (position) => {
+
+    const newAnswersList = [...answersList];
+    newAnswersList.forEach((answer, index) => {
+      const isCorrect = index === position ? true : false;
+      newAnswersList[index] = { ...newAnswersList[index], isCorrect };
+    });
     setAnswersList(newAnswersList);
   };
 
@@ -14,7 +23,7 @@ const Answers = ({ answersList, setAnswersList, type }) => {
       return <AnswerContainer>
 
         {answersList.length > 1 && <CorrectContainer>
-          <Correct type="radio" name="answer" onChange={(ev) => changeHandler(index, ev.target.value)} id={index} checked={answer.isCorrect} /><label for={index}>Correct answer</label>
+          <Correct type="radio" name="answer" onChange={() => selectHandler(index)} id={index} checked={answer.isCorrect} /><label for={index}>Correct answer</label>
         </CorrectContainer>}
 
         <Answer value={answer.text} onChange={(ev) => changeHandler(index, ev.target.value)} placeholder="Type an answer option here" disabled={type === "TrueFalse"}></Answer>

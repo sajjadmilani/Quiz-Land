@@ -1,14 +1,17 @@
 const router = require("express").Router();
 
 const { getCategories } = require('./handlers/categoryHandlers');
-const { getUser, authorizUser } = require('./handlers/userHandlers');
+const { getUser, authorizeUser } = require('./handlers/userHandlers');
 const { addQuiz, getQuiz, getQuizzesByUser } = require('./handlers/quizHandlers');
 const {
   getAMultiChoice,
   getATrueFalse,
   getAQuestion } = require('./handlers/randomHandlers');
+const { addQuestion, getQuestion } = require('./handlers/questionHandlers');
 
 //Qustions Endpoints
+router.post("/api/question", addQuestion);
+router.get("/api/question/:_id", getQuestion);
 router.get("/api/getRandom/MultiChoice", getAMultiChoice);
 router.get("/api/getRandom/TrueFalse", getATrueFalse);
 router.get("/api/getRandom/Question", getAQuestion);
@@ -22,8 +25,8 @@ router.get("/api/quiz/:_id", getQuiz);
 router.get("/api/quizzes/:userId", getQuizzesByUser);
 
 //User Endpoints
-router.post("/api/user/authorize", authorizUser);
-router.get("/api/user/:_id", getUser);
+router.post("/api/user/authorize", authorizeUser);
+router.get("/api/user/:sub", getUser);
 
 router.get("*", (req, res) => {
   res.status(404).json({

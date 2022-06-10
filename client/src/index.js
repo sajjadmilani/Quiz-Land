@@ -10,7 +10,7 @@ ReactDOM.render(
     <Auth0Provider
       domain={domain}
       clientId={clientId}
-      redirectUri={window.location.origin}>
+      redirectUri={window.location.origin + "/panel/authorized"}>
       <App />
     </Auth0Provider>
   </React.StrictMode >,

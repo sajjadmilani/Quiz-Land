@@ -8,6 +8,7 @@ import Quiz from './Panel/Quizzes/Quiz';
 import Quizzes from './Panel/Quizzes';
 import Organizer from './Panel';
 import Settings from './Panel/Settings';
+import Authorized from './Panel/Settings/Authorized';
 
 const App = () => {
 
@@ -19,6 +20,7 @@ const App = () => {
         <Route exact path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/about" element={<About />} />
+        <Route path="/panel/authorized" element={<Authorized />} />
         <Route path="/panel/settings" element={<Settings />} />
         <Route exact path="/panel" element={<Organizer />} />
         <Route exact path="/panel/quizzes" element={<Quizzes />} />
