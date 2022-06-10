@@ -5,7 +5,6 @@ const Organizer = ({ children }) => {
   return <>
     <Container>
       <LeftBar />
-
       <Wrapper>
         <Header />
         {children}
