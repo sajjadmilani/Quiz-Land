@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import 'tippy.js/dist/tippy.css';
 import Organizer from '..';
@@ -12,7 +12,7 @@ const Quiz = () => {
   const [quiz, setQuiz] = useState({});
   const [status, setStatus] = useState("idle");
   const { id } = useParams();
-
+  const navigate = useNavigate();
   useEffect(() => {
     setStatus("loading");
     fetch(`/api/quiz/${id}`)
@@ -48,7 +48,7 @@ const Quiz = () => {
               <AddQuestion to={`/panel/question/add/quiz/${id}`}>New Question</AddQuestion>
               <Buttons>
                 <Delete>Delete</Delete>
-                <Start>Start</Start>
+                <Start onClick={() => navigate("/panel/leaderboard/" + quiz.joinCode)}>Start</Start>
               </Buttons>
             </Footer>
           </QuizContainer>

@@ -14,13 +14,14 @@ import Question from './Question';
 const Play = () => {
 
   const socketRef = useRef();
-  const [quiz, setQuiz] = useState();
+  const [data, setData] = useState();
   const [status, setStatus] = useState("idle");
   //{ text: "Wait...", type: "incorrect", backgroundColor: "#EFA929" }
   const [alert, setAlert] = useState();
   const [action, setAction] = useState("");
   const { joinCode } = useParams();
   const { user } = useAuth0();
+
   useEffect(() => {
     setStatus("loading");
     socketRef.current = io.connect("/");
@@ -30,19 +31,35 @@ const Play = () => {
       socketRef.current.emit("setQuiz", { joinCode });
     });
 
-    socketRef.current.on("wait", (res) => {
-      setQuiz(res.data);
+    socketRef.current.on("nameRequest", (res) => {
+      setData(res.data);
+      console.log(res);
+      setAction("nameRequest");
       setStatus("idle");
     });
+
+    socketRef.current.on("wait", (res) => {
+      setData(res.data);
+      setAlert({
+        text: "Wait...",
+        type: "incorrect",
+        backgroundColor: "#EFA929"
+      });
+      setStatus("idle");
+    });
+
+    socketRef.current.on("newQuestion", (res) => {
+      setData(res.data);
+      console.log(res);
+      setAlert(null);
+      setAction("newQuestion");
+      setStatus("idle");
+    });
+
     socketRef.current.on("fail", (res) => {
       setStatus("fail");
     });
   }, []);
-
-
-  const clickHandler = () => {
-    socketRef.current.emit('newMessageToServer', { text: "hii" });
-  };
 
   const settingAlert = (alertData) => {
     setAlert(alertData);
@@ -51,16 +68,30 @@ const Play = () => {
     }, 3000);
   };
 
+
   return <Wrapper>
     {status === "loading" && <Loading />}
     {alert && <AlertContainer><Alert backgroundColor={alert.backgroundColor}>{alert.text}</Alert></AlertContainer>}
     {status === "fail" && <LoadingMessage>Oops! The Quiz not found...</LoadingMessage>}
     {status === "idle" && <>
+      <Header time={data && data.time} number={"1/2"} settingAlert={settingAlert} />
 
-      <Header time={10} number={"1/2"} setAlert={settingAlert} />
-      {quiz && <Results quiz={quiz} />}
-      {/* {quiz && <Landing quiz={quiz} />} */}
-      {/* {quiz && quiz.questions[0] && <Question questionData={quiz.questions[0]} />} */}
+      {(() => {
+
+        switch (action) {
+          case "nameRequest":
+            return <Landing data={data} socketRef={socketRef} />;
+          case "newQuestion":
+            return <Question questionData={data} />;
+          default:
+            break;
+        }
+
+      })()}
+
+      {/* {quiz && <Results quiz={quiz} />} */}
+
+      {/* {quiz && quiz.questions[0] && } */}
       {/* <button onClick={clickHandler} >test</button>
         {value.map((test) => { return <div style={{ fontSize: "40px", marginLeft: "40px", background: "pink" }}>{test}</div>; })} */}
     </>}
