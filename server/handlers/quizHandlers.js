@@ -3,16 +3,6 @@ const { ObjectId } = require('mongodb');
 const { mongoCreate, mongoRead, mongoReadOne, mongoReadLimit } = require('../dbHelpers');
 
 
-const randomString = (length) => {
-  var result = '';
-  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  var charactersLength = characters.length;
-  for (var i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-};
-
 const addQuiz = async (req, res) => {
   const { name, category, user } = req.body;
 
@@ -21,12 +11,12 @@ const addQuiz = async (req, res) => {
     if (!(name && category && user)) {
       return res.status(400).json({ status: 400, message: "Not all required values have been sent!" });
     }
-    let randomJoinCode = -1;
+    let randomJoinCode = "";
 
-    while (randomJoinCode === -1) {
+    while (randomJoinCode === "") {
       const isExist = await mongoReadOne("quizzes", { joinCode: randomJoinCode });
       if (!isExist) {
-        randomJoinCode = Math.floor(Math.random() * 1000000);
+        randomJoinCode = String(Math.floor(Math.random() * 1000000));
       }
     }
 
