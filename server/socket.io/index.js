@@ -1,5 +1,5 @@
-const { setQuiz } = require('./playerHandlers');
-
+const { setQuiz, setName } = require("./playerHandlers");
+const { setOrganizerQuiz, startQuiz } = require("./organizerHandlers");
 const data = {
   "status": 200,
   "data": {
@@ -32,16 +32,19 @@ const socketConnection = (io, socket) => {
   socket.emit("conAcknowledge", { message: "Connected" });
 
   socket.on("setQuiz", async (req) => await setQuiz(req, socket));
+  socket.on("setName", async (req) => await setName(req, socket));
 
   socket.on('Answer', (req) => {
     socket.emit("wait", { data: "Connected" });
   });
 
   //Organizer Socket Endpoints
-  socket.on('newMessageToServer', (msg) => {
-    // console.log(msg)
-    io.emit('messageToClients', { text: msg.text });
-  });
+
+  socket.emit("conAcknowledge", { message: "Connected" });
+  socket.on("setOrganizerQuiz", async (req) => await setOrganizerQuiz(req, socket));
+  socket.on("startQuiz", async (req) => await startQuiz(req, socket));
+
+
 };
 
 

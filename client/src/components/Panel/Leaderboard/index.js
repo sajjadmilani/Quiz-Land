@@ -1,23 +1,49 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useRef, useState } from 'react';
-import Panel from '..';
+import { useParams } from 'react-router-dom';
 import io from "socket.io-client";
 import styled from 'styled-components';
+import Loading from '../../Loading';
+import Header from './Header';
+import Landing from './Landing';
+import Results from './Results';
+import Question from './Question';
+
+
+
 const Leaderboard = () => {
+
   const socketRef = useRef();
-  const [value, setValue] = useState([]);
+  const [data, setData] = useState();
+  const [status, setStatus] = useState("idle");
+  //{ text: "Wait...", type: "incorrect", backgroundColor: "#EFA929" }
+  const [alert, setAlert] = useState();
+  const [participants, setParticipants] = useState([]);
+  const [action, setAction] = useState("");
+  const { joinCode } = useParams();
+  const { user } = useAuth0();
 
   useEffect(() => {
-
+    setStatus("loading");
     socketRef.current = io.connect("/");
-    socketRef.current.on('messageFromServer', (dataFromClient) => {
-      console.log(dataFromClient);
+
+    socketRef.current.on("conAcknowledge", (res) => {
+      console.log(res);
+      socketRef.current.emit("setOrganizerQuiz", { joinCode });
     });
 
-    socketRef.current.on('messageToClients', (dataFromClient) => {
-      let newValue = [...value, dataFromClient.text];
-      newValue.push("test");
-      setValue(newValue);
-      console.log(dataFromClient.text);
+    socketRef.current.on("addParticipant", (res) => {
+      setParticipants(res.data);
+      console.log(res.data);
+    });
+
+    socketRef.current.on("wait", (res) => {
+      setData(res.data);
+      setStatus("idle");
+    });
+
+    socketRef.current.on("fail", (res) => {
+      setStatus("fail");
     });
   }, []);
 
@@ -26,139 +52,71 @@ const Leaderboard = () => {
     socketRef.current.emit('newMessageToServer', { text: "hii" });
   };
 
-  return <Wrapper>
+  const settingAlert = (alertData) => {
+    setAlert(alertData);
+    setInterval(() => {
+      setAlert(null);
+    }, 3000);
+  };
 
-    {/* <button onClick={clickHandler} >test</button>
-    {value.map((test) => { return <div style={{ fontSize: "40px", marginLeft: "40px", background: "pink" }}>{test}</div>; })} */}
+  return <Wrapper>
+    {status === "loading" && <Loading />}
+    {alert && <AlertContainer><Alert backgroundColor={alert.backgroundColor}>{alert.text}</Alert></AlertContainer>}
+    {status === "fail" && <LoadingMessage>Oops! The Quiz not found...</LoadingMessage>}
+    {status === "idle" && <>
+
+      <Header time={0} number={"1/2"} settingAlert={settingAlert} />
+      {/* {quiz && <Results quiz={quiz} />} */}
+      {data && <Landing data={data} participants={participants} socketRef={socketRef} />}
+      {/* {quiz && quiz.questions[0] && <Question questionData={quiz.questions[0]} />} */}
+      {/* <button onClick={clickHandler} >test</button>
+        {value.map((test) => { return <div style={{ fontSize: "40px", marginLeft: "40px", background: "pink" }}>{test}</div>; })} */}
+    </>}
+
   </Wrapper>;
 };
 
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
+  display: flex;
+  position: relative;
+  justify-content:flex-start;
+  align-items: center;
+  flex-direction: column;
   margin:auto;
   background-color:#1E193B;
   box-sizing: border-box;
 `;
-
-const Header = styled.div`
-  display: flex;
-  padding:50px;
-  padding-bottom: 0;
-  justify-content: space-between;
-  align-items: flex-end;
-  @media (max-width: 700px) {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    button{
-      margin-top:20px;
-    }
-  }
-`;
-
-const Types = styled.div`
-  display: flex;
-  gap:5px;
-`;
-const Type = styled.button`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding-bottom:2px;
-    cursor: pointer;
-    padding: 0;
-    box-sizing: border-box;
-    opacity: ${props => props.selected ? "1" : "0.5"};
-    border:  solid ${props => props.selected ? "2px #d5546d" : "1px #ccc"};
-    
-`;
-
-const TypeImage = styled.img`
-  width: 100px;
-  margin-bottom:10px;
-`;
-
-const QuestionContainer = styled.div`
+const AlertContainer = styled.div`
+  background-color: rgba(0,0,0,0.7);
   width: 100%;
-  padding:50px;
-  position: relative;
-  box-sizing: border-box;
-  height: fit-content;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
   display: flex;
-  flex-direction: column;
-  align-content: center;
   align-items: center;
 `;
 
-const Loader = styled.div`
-  position: absolute;
-  top:0;
-  bottom:0;
-  right:0;
-  left:0;
-  background-color: rgba(0,0,0,0.7);
+const Alert = styled.div`
+  background-color: ${props => props.backgroundColor};
+  width:100%;
+  text-align: center;
+  color:#FFFFFF;
+
+  padding:50px 40px;
+  font-size:26px;
+  box-sizing: border-box;
+
 `;
 
-const Question = styled.textarea`
-  width: 100%;
-  padding:50px;
-  font-size: 28px;
-  resize: none;
-  text-align: center;
+const LoadingMessage = styled.div`
+  background-color:#312B4F;
+  width:450px;
+  color:#FFFFFF;
+  padding:30px 40px;
+  font-size:20px;
   box-sizing: border-box;
   border-radius: 10px;
-`;
-
-const Footer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  background-color: #e3e2e1;
-  padding: 10px;
-  @media (max-width: 600px) {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 50px;
-  }
-`;
-
-
-const Options = styled.div`
-  
-`;
-
-const Select = styled.select`
-margin-left:5px;
-font-size:16px;
-padding:10px;
-`;
-
-const Point = styled.select`
-`;
-
-const Buttons = styled.div`
-  @media (max-width: 600px) {
-      margin-top:10px;
-  }
-`;
-const Submit = styled.button`
-  Padding:10px 20px;
-  background-color: #ffffff;
-  font-size:19px;
-  margin-left:10px;
-  background-color: #2d9da6;
-    color: white;
-    border: none;
-  cursor: pointer;
-`;
-
-const Cancel = styled.button`
-  Padding:10px 20px;
-  background-color: #ffffff;
-  font-size:19px;
-  border:none;
-  cursor: pointer;
 `;
 export default Leaderboard;

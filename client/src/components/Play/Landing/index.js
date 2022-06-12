@@ -1,12 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-const Landing = ({ quiz }) => {
+const Landing = ({ data, socketRef }) => {
   const [name, setName] = useState("");
+  const submitHandler = () => {
+    name && socketRef.current.emit("setName", {
+      joinCode: data.joinCode,
+      name
+    });
+  };
   return <Wrapper>
-    <Header>Quiz: {quiz.name}</Header>
+    <Header>Quiz: {data.name}</Header>
     <NameInput value={name} onChange={(ev) => setName(ev.target.value)} placeholder="Your name..." />
-    <Start>Start</Start>
+    <Start onClick={submitHandler}>Start</Start>
   </Wrapper>;
 };
 const Wrapper = styled.div`

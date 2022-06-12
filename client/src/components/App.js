@@ -28,7 +28,7 @@ const App = () => {
         <Route path="/panel/settings" element={<Settings />} />
         <Route exact path="/panel" element={<Organizer />} />
         <Route exact path="/panel/quizzes" element={<Quizzes />} />
-        <Route exact path="/panel/leaderboard" element={<Leaderboard />} />
+        <Route exact path="/panel/leaderboard/:joinCode" element={<Leaderboard />} />
         <Route exact path="/panel/quiz/join" element={<Join />} />
         <Route exact path="/panel/quiz/add" element={<AddQuiz />} />
         <Route exact path="/panel/question/add/quiz/:id" element={<AddQuestion />} />

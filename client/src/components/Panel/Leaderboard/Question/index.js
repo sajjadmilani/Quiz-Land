@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Answers from './Answers';
-import Loading from '../../Loading';
+import Loading from '../../../Loading';
 import { useNavigate } from 'react-router-dom';
 
 const initialAnswers = (type) => {
@@ -31,9 +31,14 @@ const Question = ({ questionData }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setQuestion(questionData.question);
-    setAnswers(questionData.answers);
-  }, [questionData]);
+    fetch(`/api/question/${questionData.questionId}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data.data.question);
+        setQuestion(data.data.question);
+        setAnswers(data.data.answers);
+      });
+  }, []);
 
   const submitHandler = () => {
 
