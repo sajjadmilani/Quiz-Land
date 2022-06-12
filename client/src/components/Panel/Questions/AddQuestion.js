@@ -29,7 +29,7 @@ const AddQuestion = () => {
   const [type, setType] = useState("MultiChoice");
   const [answers, setAnswers] = useState(initialAnswers(type));
   const [status, setStatus] = useState("idle");
-  const [time, setTime] = useState("20 seconds");
+  const [time, setTime] = useState(20);
   const [point, setPoint] = useState(1);
   const [difficulty, setDifficulty] = useState("easy");
   const navigate = useNavigate();
@@ -61,6 +61,8 @@ const AddQuestion = () => {
       body: JSON.stringify({
         quiz: id,
         type,
+        point,
+        time,
         difficulty,
         question,
         answers
@@ -129,15 +131,15 @@ const AddQuestion = () => {
             delay={150}
           >
             <Select onChange={(ev) => setTime(ev.target.value)}>
-              <option value="5 seconds">5 seconds</option>
-              <option value="10 seconds">10 seconds</option>
-              <option value="20 seconds" selected>20 seconds</option>
-              <option value="30 seconds">30 seconds</option>
-              <option value="45 seconds">45 seconds</option>
-              <option value="1 minute">1 minute</option>
-              <option value="21 minute">2 minutes</option>
-              <option value="3 minute">3 minutes</option>
-              <option value="5 minute">5 minutes</option>
+              <option value="5">5 seconds</option>
+              <option value="10">10 seconds</option>
+              <option value="20" selected>20 seconds</option>
+              <option value="30">30 seconds</option>
+              <option value="45">45 seconds</option>
+              <option value="60">1 minute</option>
+              <option value="120">2 minutes</option>
+              <option value="180">3 minutes</option>
+              <option value="300">5 minutes</option>
             </Select>
           </Tippy>
           <Tippy

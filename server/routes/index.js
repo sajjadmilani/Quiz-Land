@@ -1,13 +1,13 @@
 const router = require("express").Router();
 
-const { getCategories } = require('./handlers/categoryHandlers');
-const { getUser, authorizeUser } = require('./handlers/userHandlers');
-const { addQuiz, getQuiz, getQuizzesByUser } = require('./handlers/quizHandlers');
+const { getCategories } = require('../handlers/categoryHandlers');
+const { getUser, authorizeUser } = require('../handlers/userHandlers');
+const { addQuiz, getQuiz, getQuizzesByUser } = require('../handlers/quizHandlers');
 const {
   getAMultiChoice,
   getATrueFalse,
-  getAQuestion } = require('./handlers/randomHandlers');
-const { addQuestion, getQuestion } = require('./handlers/questionHandlers');
+  getAQuestion } = require('../handlers/randomHandlers');
+const { addQuestion, getQuestion } = require('../handlers/questionHandlers');
 
 //Qustions Endpoints
 router.post("/api/question", addQuestion);
