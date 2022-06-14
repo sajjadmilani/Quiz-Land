@@ -1,119 +1,142 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import ScoreBar from './ScoreBar';
 import { BsCheck2Circle, BsXCircle, BsAward, BsBullseye, BsPersonCircle } from 'react-icons/bs';
-const Result = ({ resultData }) => {
+const Result = ({ data, socketRef }) => {
   const [name, setName] = useState("");
+
+  const nextQuestion = () => {
+    console.log(data);
+    socketRef.current.emit("nextQuestion", {
+      joinCode: data.joinCode
+    });
+  };
+
   return <Wrapper>
-    <Header>Report Summary</Header>
-    <NameContainer><BsPersonCircle size={40} /> <Name>Sajjad</Name></NameContainer>
-
+    <Buttons>
+      <End>End Game</End>
+      <Next onClick={nextQuestion}>Next Question</Next>
+    </Buttons>
+    <Header>LEADERBOARD</Header>
+    <Question>{data.question}</Question>
     <Stats>
+      {data.players.map(player => {
+        return <Stat>
+          <Rank>{player.rank}</Rank>
+          <Title><BsPersonCircle size={40} /><span>{player.name}</span> </Title>
+          <ScoreBar correct={player.correctCount} incorrect={player.incorrectCount} />
+          <Score>{player.score}</Score>
+        </Stat>;
+      })}
 
+      {/* 
       <Stat>
-        <LeftSide>
-          <Title>Rank</Title>
-          <Value>1/1</Value>
-        </LeftSide>
-        <Icon><BsAward size={70} color={"#EFA929"} /></Icon>
+        <Rank>2</Rank>
+        <Title><BsPersonCircle size={40} /><span>Sajjad</span> </Title>
+        <ScoreBar percent={40} />
+        <Score>3000</Score>
       </Stat>
 
       <Stat>
-        <LeftSide>
-          <Title>Score</Title>
-          <Value>0</Value>
-        </LeftSide>
-        <Icon><BsBullseye size={70} color={"white"} /></Icon>
+        <Rank>3</Rank>
+        <Title><BsPersonCircle size={40} /><span>Sajjad</span> </Title>
+        <ScoreBar percent={40} />
+        <Score>2200</Score>
       </Stat>
 
       <Stat>
-        <LeftSide>
-          <Title>Correct</Title>
-          <Value>0</Value>
-        </LeftSide>
-        <Icon><BsCheck2Circle size={70} color={"#2D9DA6"} /></Icon>
-      </Stat>
+        <Rank>4</Rank>
+        <Title><BsPersonCircle size={40} /><span>Sajjad</span> </Title>
+        <ScoreBar percent={40} />
+        <Score>100</Score>
+      </Stat> */}
 
-      <Stat>
-        <LeftSide>
-          <Title>Incorrect</Title>
-          <Value>0</Value>
-        </LeftSide>
-        <Icon><BsXCircle size={65} color={"#D5546D"} /></Icon>
-      </Stat>
     </Stats>
   </Wrapper>;
 };
 const Wrapper = styled.div`
   background-color:#312B4F;
-  width:500px;
   margin-top:40px;
-  padding:30px 40px;
+  padding:50px 50px;
   box-sizing: border-box;
   border-radius: 10px;
+  width: 100%;
+  max-width:1000px;
+
+`;
+const Question = styled.div`
+  background-color: rgba(255,255,255,0.1);
+  color:#FFFFFF;
+  padding:30px;
+  font-size:18px;
+  text-align: center;
 `;
 const Header = styled.div`
   color:#FFFFFF;
-  font-size:20px;
-  margin-bottom:20px;
+  font-size:26px;
+  margin-top:20px;
+  margin-bottom:40px;
+  text-align: center;
 `;
-const NameContainer = styled.div`
-  padding:12px;
-  box-sizing: border-box;
-  font-size:18px;
-  width: 100%;
-  color:#FFFFFF;
-  background:#1E193B;
+const Buttons = styled.div`
   display: flex;
-  align-items: center;
+  justify-content: space-between
 `;
-const Name = styled.div`
+const Next = styled.button`
+  Padding:10px 20px;
+  font-size:19px;
   margin-left:10px;
-
+  background-color:#EFA929;
+    color:  #FFFFFF;
+    border: none;
+  cursor: pointer;
+`;
+const End = styled.button`
+  Padding:10px 20px;
+  font-size:19px;
+  margin-left:10px;
+  background-color:#D5546D;
+    color: #FFFFFF;
+    border: none;
+  cursor: pointer;
 `;
 
 const Stats = styled.div`
   margin-top:10px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 10px;
-
+`;
+const Rank = styled.div`
+  margin-left: 12px;
+  font-size: 10px;
+  font-size:24px;
 `;
 const Stat = styled.div`
   padding:12px;
   box-sizing: border-box;
   font-size:18px;
+  margin-top:10px;
   width: 100%;
   color:#FFFFFF;
   background:#1E193B;
   overflow: hidden;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
-const LeftSide = styled.div`
-`;
+
 const Title = styled.div`
+display: flex;
+font-size:20px;
+align-items: center;
+span{
+  margin-left:12px;
+}
 `;
-const Value = styled.div`
-`;
-const Icon = styled.div`
-margin-right: -30px;
-`;
-const Start = styled.button`
-  background-color: #00C985;
-  color:#FFFFFF;
-  width: 100%;
-  font-size:18px;
-  margin-top:20px;
-  border:none;
-  border-bottom: 5px solid green;
-  border-radius: 10px;
-  padding:12px;
-  cursor: pointer;
 
-  &:hover{
-    margin-top:25px;
-    border-bottom: 0px solid green;
-
-  }
+const Score = styled.div`
+font-size:24px;
+margin-right: 10px;
 `;
+
+
 export default Result;

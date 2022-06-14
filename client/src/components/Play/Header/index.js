@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-const Header = ({ number, time, settingAlert }) => {
+const Header = ({ number, time, settingAlert, questionNum }) => {
 
   const initialMinutes = Math.floor(time / 60);
   const initialSeconds = Math.floor(time % 60);
@@ -13,9 +13,20 @@ const Header = ({ number, time, settingAlert }) => {
   const [minutes, setMinutes] = useState(initialMinutes);
   const [seconds, setSeconds] = useState(initialSeconds);
   const [counter, setCounter] = useState(time);
+
+  useEffect(() => {
+    const calcMinutes = Math.floor(time / 60);
+    const calcSeconds = Math.floor(time % 60);
+    setMinutes(calcMinutes);
+    setSeconds(calcSeconds);
+    setCounter(time);
+
+  }, [questionNum]);
+
   useEffect(() => {
     console.log(initialMinutes, initialSeconds);
     let myInterval = setInterval(() => {
+      console.log(seconds);
       if (time !== 0) {
         if (seconds > 0) {
           setSeconds(seconds - 1);
@@ -36,7 +47,7 @@ const Header = ({ number, time, settingAlert }) => {
     return () => {
       clearInterval(myInterval);
     };
-  }, [counter, time]);
+  }, [counter]);
 
   return <Wrapper>
 

@@ -7,6 +7,7 @@ import Loading from "../../Loading";
 import Organizer from '..';
 import Button from '../Button';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const initialAnswers = (type) => {
   switch (type) {
@@ -32,7 +33,9 @@ const AddQuestion = () => {
   const [time, setTime] = useState(20);
   const [point, setPoint] = useState(1);
   const [difficulty, setDifficulty] = useState("easy");
+  const { user } = useAuth0();
   const navigate = useNavigate();
+
   const randomHandler = () => {
     if (type === "") { return; }
     setStatus("loading");
@@ -65,7 +68,8 @@ const AddQuestion = () => {
         time,
         difficulty,
         question,
-        answers
+        answers,
+        userId: user.sub
       })
     })
       .then(res => res.json())

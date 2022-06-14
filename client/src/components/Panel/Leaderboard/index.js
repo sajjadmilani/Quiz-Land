@@ -7,16 +7,12 @@ import Loading from '../../Loading';
 import Header from './Header';
 import Landing from './Landing';
 import Results from './Results';
-import Question from './Question';
-
-
 
 const Leaderboard = () => {
 
   const socketRef = useRef();
   const [data, setData] = useState();
   const [status, setStatus] = useState("idle");
-  //{ text: "Wait...", type: "incorrect", backgroundColor: "#EFA929" }
   const [alert, setAlert] = useState();
   const [participants, setParticipants] = useState([]);
   const [action, setAction] = useState("");
@@ -29,16 +25,32 @@ const Leaderboard = () => {
 
     socketRef.current.on("conAcknowledge", (res) => {
       console.log(res);
-      socketRef.current.emit("setOrganizerQuiz", { joinCode });
+      socketRef.current.emit("organizerJoinQuiz", { joinCode });
     });
 
     socketRef.current.on("addParticipant", (res) => {
       setParticipants(res.data);
-      console.log(res.data);
+      setAction("addParticipant");
+      setStatus("idle");
     });
 
-    socketRef.current.on("wait", (res) => {
+    socketRef.current.on("waitForJoin", (res) => {
       setData(res.data);
+      setAction("waitForJoin");
+      setStatus("idle");
+    });
+
+    socketRef.current.on("updateLeaderBoard", (res) => {
+      console.log(res.data);
+      setData(res.data);
+      setAction("updateLeaderBoard");
+      setStatus("idle");
+    });
+
+    socketRef.current.on("updateLeaderBoard", (res) => {
+      console.log(res.data);
+      setData(res.data);
+      setAction("updateLeaderBoard");
       setStatus("idle");
     });
 
@@ -47,32 +59,38 @@ const Leaderboard = () => {
     });
   }, []);
 
-
-  const clickHandler = () => {
-    socketRef.current.emit('newMessageToServer', { text: "hii" });
-  };
-
   const settingAlert = (alertData) => {
     setAlert(alertData);
     setInterval(() => {
       setAlert(null);
     }, 3000);
   };
-
+  console.log(data);
   return <Wrapper>
     {status === "loading" && <Loading />}
     {alert && <AlertContainer><Alert backgroundColor={alert.backgroundColor}>{alert.text}</Alert></AlertContainer>}
     {status === "fail" && <LoadingMessage>Oops! The Quiz not found...</LoadingMessage>}
     {status === "idle" && <>
 
-      <Header time={0} number={"1/2"} settingAlert={settingAlert} />
-      {/* {quiz && <Results quiz={quiz} />} */}
-      {data && <Landing data={data} participants={participants} socketRef={socketRef} />}
+      <Header time={data?.time} number={data?.questionCounter || 0} settingAlert={settingAlert} questionNum={data?.questionNum || 0} />
+
+      {(() => {
+        switch (action) {
+          case "waitForJoin":
+          case "addParticipant": {
+            return <Landing data={data} participants={participants} socketRef={socketRef} />;
+          }
+          case "updateLeaderBoard": {
+            return <Results data={data} socketRef={socketRef} />;
+          }
+
+        }
+      })()}
+
       {/* {quiz && quiz.questions[0] && <Question questionData={quiz.questions[0]} />} */}
       {/* <button onClick={clickHandler} >test</button>
         {value.map((test) => { return <div style={{ fontSize: "40px", marginLeft: "40px", background: "pink" }}>{test}</div>; })} */}
     </>}
-
   </Wrapper>;
 };
 
