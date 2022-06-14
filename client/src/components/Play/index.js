@@ -16,65 +16,68 @@ const Play = () => {
   const socketRef = useRef();
   const [data, setData] = useState();
   const [status, setStatus] = useState("idle");
-  //{ text: "Wait...", type: "incorrect", backgroundColor: "#EFA929" }
+  //Alert Structure: { text: "Wait...", type: "incorrect", backgroundColor: "#EFA929" }
   const [alert, setAlert] = useState();
   const [action, setAction] = useState("");
   const { joinCode } = useParams();
   const { user } = useAuth0();
+  const [questionNum, setQuestionNum] = useState(0);
 
   useEffect(() => {
     setStatus("loading");
-    socketRef.current = io.connect("/");
+    if (user) {
+      socketRef.current = io.connect("/");
 
-    socketRef.current.on("conAcknowledge", (res) => {
-      console.log(res);
-      socketRef.current.emit("setQuiz", { joinCode });
-    });
-
-    socketRef.current.on("nameRequest", (res) => {
-      setData(res.data);
-      console.log(res);
-      setAction("nameRequest");
-      setStatus("idle");
-    });
-
-    socketRef.current.on("wait", (res) => {
-      setData(res.data);
-      setAlert({
-        text: "Wait...",
-        type: "incorrect",
-        backgroundColor: "#EFA929"
+      socketRef.current.on("conAcknowledge", (res) => {
+        socketRef.current.emit("joinQuiz", { joinCode, user: user.sub });
       });
-      setStatus("idle");
-    });
 
-    socketRef.current.on("newQuestion", (res) => {
-      setData(res.data);
-      console.log(res);
-      setAlert(null);
-      setAction("newQuestion");
-      setStatus("idle");
-    });
+      socketRef.current.on("nameRequest", (res) => {
+        setAlert(null);
+        setData(res.data);
+        setAction("nameRequest");
+        setStatus("idle");
+      });
 
-    socketRef.current.on("fail", (res) => {
-      setStatus("fail");
-    });
-  }, []);
+      socketRef.current.on("wait", (res) => {
+
+        setData(res.data);
+        setAlert({
+          text: "Wait...",
+          type: "incorrect",
+          backgroundColor: "#EFA929"
+        });
+        setStatus("idle");
+      });
+
+      socketRef.current.on("newQuestion", (res) => {
+        setData(res.data);
+        setAlert(null);
+        setAction("newQuestion");
+        setQuestionNum(res.data.questionNum);
+        setStatus("idle");
+      });
+
+      socketRef.current.on("fail", (res) => {
+        setStatus("fail");
+      });
+    }
+  }, [user]);
 
   const settingAlert = (alertData) => {
     setAlert(alertData);
-    setInterval(() => {
-      setAlert(null);
-    }, 3000);
-  };
+    setTimeout(() => {
 
+    }, 2000);
+  };
+  console.log(data?.time);
 
   return <Wrapper>
     {status === "loading" && <Loading />}
     {alert && <AlertContainer><Alert backgroundColor={alert.backgroundColor}>{alert.text}</Alert></AlertContainer>}
     {status === "fail" && <LoadingMessage>Oops! The Quiz not found...</LoadingMessage>}
     {status === "idle" && <>
-      <Header time={data && data.time} number={"1/2"} settingAlert={settingAlert} />
+      <Header time={data && data.time} number={"1/2"} settingAlert={settingAlert} questionNum={questionNum} />
 
       {(() => {
 

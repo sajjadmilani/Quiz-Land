@@ -1,23 +1,17 @@
+const { MongoClient } = require("mongodb");
+require("dotenv").config();
+
+const { MONGO_URI, DB_NAME } = process.env;
+
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
+
 const { mongoReadOne, mongoUpdateOne } = require('../dbHelpers');
 const { updateLanding } = require('./organizerHandlers');
 
-const setQuiz = async (req, socket) => {
-  console.log(req);
-  console.log(socket.id);
-  const { joinCode } = req;
-  const quizData = await mongoReadOne("quizzes", { joinCode });
 
-  if (quizData && quizData.status === "pendingJoin") {
-    const newValue = { $addToSet: { players: { socketId: socket.id } } };
-    const result = await mongoUpdateOne("results", { joinCode }, newValue);
-
-
-    socket.emit("nameRequest", { data: quizData });
-  }
-  else {
-    socket.emit("fail", { message: "fail" });
-  }
-};
 
 const setName = async (req, socket) => {
   console.log(req);
@@ -36,5 +30,5 @@ const setName = async (req, socket) => {
 };
 
 module.exports = {
-  setQuiz, setName
+  setName
 };
