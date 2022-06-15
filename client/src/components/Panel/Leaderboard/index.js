@@ -29,6 +29,7 @@ const Leaderboard = () => {
     });
 
     socketRef.current.on("addParticipant", (res) => {
+      console.log(res);
       setParticipants(res.data);
       setAction("addParticipant");
       setStatus("idle");
