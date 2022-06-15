@@ -11,13 +11,8 @@ const options = {
 };
 
 
-let questionTimer;
-
 const nextQuestion = async (req, socket) => {
   const client = new MongoClient(MONGO_URI, options);
-
-  // //clear previous 
-  // clearTimeout(questionTimer);
 
   try {
 

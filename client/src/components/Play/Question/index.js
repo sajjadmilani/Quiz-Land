@@ -19,7 +19,7 @@ const initialAnswers = (type) => {
 };
 
 const Question = ({ joinCode, questionData, socketRef }) => {
-  console.log(questionData);
+
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState(initialAnswers(questionData.type));
   const [status, setStatus] = useState("idle");
