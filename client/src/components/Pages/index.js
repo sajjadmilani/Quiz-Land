@@ -11,6 +11,7 @@ const Pages = ({ children }) => {
 };
 
 const Wrapper = styled.div`
+
 `;
 
 const Container = styled.div`

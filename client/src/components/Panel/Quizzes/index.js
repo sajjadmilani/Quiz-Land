@@ -49,7 +49,7 @@ const Quizzes = () => {
                 </Detail>
 
                 <Detail>
-                  <Name>Create Date:</Name>
+                  <Name>Created Date:</Name>
                   <Value>{new Date(quiz.createDate).toLocaleDateString('en-us', options)}</Value>
                 </Detail>
 
