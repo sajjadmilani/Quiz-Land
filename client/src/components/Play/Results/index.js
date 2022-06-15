@@ -1,18 +1,16 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import { BsCheck2Circle, BsXCircle, BsAward, BsBullseye, BsPersonCircle } from 'react-icons/bs';
-const Result = ({ resultData }) => {
-  const [name, setName] = useState("");
+const Result = ({ data }) => {
+
   return <Wrapper>
     <Header>Report Summary</Header>
-    <NameContainer><BsPersonCircle size={40} /> <Name>Sajjad</Name></NameContainer>
+    <NameContainer><BsPersonCircle size={40} /> <Name>{data.name}</Name></NameContainer>
 
     <Stats>
-
       <Stat>
         <LeftSide>
           <Title>Rank</Title>
-          <Value>1/1</Value>
+          <Value>{data.rank}</Value>
         </LeftSide>
         <Icon><BsAward size={70} color={"#EFA929"} /></Icon>
       </Stat>
@@ -20,7 +18,7 @@ const Result = ({ resultData }) => {
       <Stat>
         <LeftSide>
           <Title>Score</Title>
-          <Value>0</Value>
+          <Value>{data.score}</Value>
         </LeftSide>
         <Icon><BsBullseye size={70} color={"white"} /></Icon>
       </Stat>
@@ -28,7 +26,7 @@ const Result = ({ resultData }) => {
       <Stat>
         <LeftSide>
           <Title>Correct</Title>
-          <Value>0</Value>
+          <Value>{data.correctCount}</Value>
         </LeftSide>
         <Icon><BsCheck2Circle size={70} color={"#2D9DA6"} /></Icon>
       </Stat>
@@ -36,13 +34,14 @@ const Result = ({ resultData }) => {
       <Stat>
         <LeftSide>
           <Title>Incorrect</Title>
-          <Value>0</Value>
+          <Value>{data.incorrectCount}</Value>
         </LeftSide>
         <Icon><BsXCircle size={65} color={"#D5546D"} /></Icon>
       </Stat>
     </Stats>
   </Wrapper>;
 };
+
 const Wrapper = styled.div`
   background-color:#312B4F;
   width:500px;
@@ -97,23 +96,7 @@ const Value = styled.div`
 `;
 const Icon = styled.div`
 margin-right: -30px;
+opacity: 0.5;
 `;
-const Start = styled.button`
-  background-color: #00C985;
-  color:#FFFFFF;
-  width: 100%;
-  font-size:18px;
-  margin-top:20px;
-  border:none;
-  border-bottom: 5px solid green;
-  border-radius: 10px;
-  padding:12px;
-  cursor: pointer;
 
-  &:hover{
-    margin-top:25px;
-    border-bottom: 0px solid green;
-
-  }
-`;
 export default Result;

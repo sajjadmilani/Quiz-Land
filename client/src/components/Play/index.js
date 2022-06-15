@@ -16,7 +16,6 @@ const Play = () => {
   const socketRef = useRef();
   const [data, setData] = useState();
   const [status, setStatus] = useState("idle");
-  //Alert Structure: { text: "Wait...", type: "incorrect", backgroundColor: "#EFA929" }
   const [alert, setAlert] = useState();
   const [action, setAction] = useState("");
   const { joinCode } = useParams();
@@ -40,17 +39,6 @@ const Play = () => {
         setStatus("idle");
       });
 
-      socketRef.current.on("wait", (res) => {
-
-        setData(res.data);
-        setAlert({
-          text: "Wait...",
-          type: "incorrect",
-          backgroundColor: "#EFA929"
-        });
-        setStatus("idle");
-      });
-
       socketRef.current.on("newQuestion", (res) => {
         setData(res.data);
         setAlert(null);
@@ -59,10 +47,40 @@ const Play = () => {
         setStatus("idle");
       });
 
-      socketRef.current.on("fail", (res) => {
-        setStatus("fail");
+      socketRef.current.on("result", (res) => {
+        setData(res.data);
+        console.log(res.data);
+        setAlert(null);
+        setAction("result");
+        setStatus("idle");
       });
+
+      socketRef.current.on("success", (res) => {
+        setAlert({
+          text: res.message,
+          backgroundColor: "#2D9DA6"
+        });
+        setStatus("idle");
+      });
+
+      socketRef.current.on("fail", (res) => {
+        setAlert({
+          text: res.message,
+          backgroundColor: "#D5546D"
+        });
+        setStatus("idle");
+      });
+
+      socketRef.current.on("wait", (res) => {
+        setAlert({
+          text: "Wait...",
+          backgroundColor: "#EFA929"
+        });
+        setStatus("idle");
+      });
+
     }
+
   }, [user]);
 
   const settingAlert = (alertData) => {
@@ -71,14 +89,13 @@ const Play = () => {
 
     }, 2000);
   };
-  console.log(data?.time);
 
   return <Wrapper>
     {status === "loading" && <Loading />}
-    {alert && <AlertContainer><Alert backgroundColor={alert.backgroundColor}>{alert.text}</Alert></AlertContainer>}
+    {alert && action !== "result" && <AlertContainer><Alert backgroundColor={alert.backgroundColor}>{alert.text}</Alert></AlertContainer>}
     {status === "fail" && <LoadingMessage>Oops! The Quiz not found...</LoadingMessage>}
     {status === "idle" && <>
-      <Header time={data && data.time} number={"1/2"} settingAlert={settingAlert} questionNum={questionNum} />
+      <Header time={data && data.time} number={data?.questionCounter} settingAlert={settingAlert} questionNum={questionNum} />
 
       {(() => {
 
@@ -87,17 +104,14 @@ const Play = () => {
             return <Landing data={data} socketRef={socketRef} />;
           case "newQuestion":
             return <Question questionData={data} socketRef={socketRef} joinCode={joinCode} />;
+          case "result":
+            return <Results data={data} />;
           default:
             break;
         }
 
       })()}
 
-      {/* {quiz && <Results quiz={quiz} />} */}
-
-      {/* {quiz && quiz.questions[0] && } */}
-      {/* <button onClick={clickHandler} >test</button>
-        {value.map((test) => { return <div style={{ fontSize: "40px", marginLeft: "40px", background: "pink" }}>{test}</div>; })} */}
     </>}
 
   </Wrapper>;

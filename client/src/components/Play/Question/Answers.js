@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Answers = ({ joinCode, answersList, type, socketRef }) => {
-
+  console.log(joinCode, answersList, type, socketRef);
   const clickHandler = (value) => {
     alert(value);
     console.log(socketRef);
@@ -14,9 +14,9 @@ const Answers = ({ joinCode, answersList, type, socketRef }) => {
 
   return <Wrapper>
     {answersList?.map((answer, index) => {
-      return <AnswerContainer>
+      return <AnswerContainer key={index}>
         <Answer value={answer.text} onClick={() => clickHandler(answer.text)}
-          placeholder="Type an answer option here" disabled={type === "TrueFalse"}>{answer.text}</Answer>
+          placeholder="Type an answer option here" >{answer.text}</Answer>
       </AnswerContainer >;
     })}
   </Wrapper >;

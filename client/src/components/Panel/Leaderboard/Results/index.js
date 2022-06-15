@@ -1,55 +1,43 @@
-import { useState } from 'react';
+
 import styled from 'styled-components';
 import ScoreBar from './ScoreBar';
-import { BsCheck2Circle, BsXCircle, BsAward, BsBullseye, BsPersonCircle } from 'react-icons/bs';
+import { BsPersonCircle } from 'react-icons/bs';
+
+const checkQuestionRemains = (number) => {
+  const splitedNumber = number.split("/");
+  return splitedNumber[0] !== splitedNumber[1];
+};
+
 const Result = ({ data, socketRef }) => {
-  const [name, setName] = useState("");
 
   const nextQuestion = () => {
-    console.log(data);
     socketRef.current.emit("nextQuestion", {
+      joinCode: data.joinCode
+    });
+  };
+
+  const endGame = () => {
+    socketRef.current.emit("endGame", {
       joinCode: data.joinCode
     });
   };
 
   return <Wrapper>
     <Buttons>
-      <End>End Game</End>
-      <Next onClick={nextQuestion}>Next Question</Next>
+      <End onClick={endGame}>End Quiz</End>
+      {checkQuestionRemains(data.questionCounter) && <Next onClick={nextQuestion}>Next Question</Next>}
     </Buttons>
     <Header>LEADERBOARD</Header>
     <Question>{data.question}</Question>
     <Stats>
       {data.players.sort((a, b) => b.score - a.score).map((player, index) => {
-        return <Stat>
+        return <Stat key={index}>
           <Rank>{index + 1}</Rank>
           <Title><BsPersonCircle size={40} /><span>{player.name}</span> </Title>
           <ScoreBar correct={player.correctCount} incorrect={player.incorrectCount} />
           <Score>{player.score}</Score>
         </Stat>;
       })}
-
-      {/* 
-      <Stat>
-        <Rank>2</Rank>
-        <Title><BsPersonCircle size={40} /><span>Sajjad</span> </Title>
-        <ScoreBar percent={40} />
-        <Score>3000</Score>
-      </Stat>
-
-      <Stat>
-        <Rank>3</Rank>
-        <Title><BsPersonCircle size={40} /><span>Sajjad</span> </Title>
-        <ScoreBar percent={40} />
-        <Score>2200</Score>
-      </Stat>
-
-      <Stat>
-        <Rank>4</Rank>
-        <Title><BsPersonCircle size={40} /><span>Sajjad</span> </Title>
-        <ScoreBar percent={40} />
-        <Score>100</Score>
-      </Stat> */}
 
     </Stats>
   </Wrapper>;
@@ -136,6 +124,7 @@ span{
 const Score = styled.div`
 font-size:24px;
 margin-right: 10px;
+width: 70px;
 `;
 
 

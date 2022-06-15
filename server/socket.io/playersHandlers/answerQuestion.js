@@ -31,10 +31,21 @@ const answerQuestion = async (req, socket) => {
       { _id: quizData.questions[quizData.currentQuestion - 1].questionId }
     );
 
+
     //Get current quiz result Data
     const resultData = await db.collection("results").findOne({ _id: quizData.currentResult });
+    console.log("socket", socket.id);
+    console.log("============================================");
+    console.log(resultData.players.find(player => player.socketId === socket.id));
+    if (resultData.players.find(player => player.socketId === socket.id).answers[quizData.currentQuestion - 1].answer !== null) {
 
+      socket.emit("fail", { message: "The Question answered before" });
+      return;
+    }
     answerIsCorrect = questionData.answers.some(answer => answer.isCorrect && answer.text === insertedAnswer);
+
+
+
 
     //Filter players who answered the current question correctly 
     const correctAnsweredPlayers = resultData.players.filter((player) => {
@@ -64,6 +75,10 @@ const answerQuestion = async (req, socket) => {
       const result = await db.collection("results").findOne(
         { _id: quizData.currentResult }
       );
+
+      answerIsCorrect ?
+        socket.emit("success", { message: "CORRECT!" }) :
+        socket.emit("fail", { message: "INCORRECT!" });
 
       //Update leaderboard
       updateLeaderboard(questionData, quizData, result, socket);

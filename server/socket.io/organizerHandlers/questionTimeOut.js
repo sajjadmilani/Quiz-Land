@@ -23,7 +23,7 @@ const questionTimeOut = async (quizData, questionData) => {
       {
         _id: quizData.currentResult,
         "players.answers.questionId": questionData._id,
-        "players.answers.submitDate": null
+        "players.answers.answer": null
       },
       { $set: { "players.$[].answers.$.submitDate": new Date() } },
 

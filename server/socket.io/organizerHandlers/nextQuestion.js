@@ -16,8 +16,8 @@ let questionTimer;
 const nextQuestion = async (req, socket) => {
   const client = new MongoClient(MONGO_URI, options);
 
-  //clear previous 
-  clearTimeout(questionTimer);
+  // //clear previous 
+  // clearTimeout(questionTimer);
 
   try {
 
@@ -30,16 +30,24 @@ const nextQuestion = async (req, socket) => {
     //Queries
 
     const { joinCode } = req;
+    let quizData = await db.collection("quizzes").findOne({ joinCode });
+
+    if (quizData.currentQuestion === quizData.questions.length) {
+      return;
+    }
+
     const quizArray = await db.collection("quizzes").findOneAndUpdate(
       { joinCode },
       { $inc: { currentQuestion: 1 } },
-      { returnOriginal: false }
+      { returnDocument: "after" }
     );
-    const quizData = quizArray.value;
+    quizData = quizArray.value;
+
+    console.log(quizData.currentQuestion);
     //-----------------------------------------------------------------------------
 
     const questionData = await db.collection("questions").findOne(
-      { _id: quizData.questions[quizData.currentQuestion].questionId }
+      { _id: quizData.questions[quizData.currentQuestion - 1].questionId }
     );
 
 
@@ -64,10 +72,18 @@ const nextQuestion = async (req, socket) => {
         { returnOriginal: false }
       );
 
+      questionData.answers.forEach(answer => {
+        delete answer.isCorrect;
+      });
 
+      delete questionData.userId;
       //send new question to players
       socket.broadcast.to(joinCode).emit("newQuestion", {
-        data: { ...questionData, questionNum: quizData.currentQuestion + 1 }
+        data: {
+          ...questionData,
+          questionNum: quizData.currentQuestion + 1,
+          questionCounter: `${quizData.currentQuestion}/${quizData.questions.length}`
+        }
       });
 
       //update leaderboard
@@ -75,9 +91,8 @@ const nextQuestion = async (req, socket) => {
 
       //Expire question after inserted time
       questionTimer = setTimeout(async () => {
-        console.log("timeout");
         await questionTimeOut(quizData, questionData);
-        socket.broadcast.to(joinCode).emit("wait", { data: { ...questionData, questionNum: quizData.currentQuestion + 1 } });
+        // socket.broadcast.to(joinCode).emit("wait", { data: { ...questionData, questionNum: quizData.currentQuestion + 1 } });
       }, (questionData.time + 3) * 1000);
 
     }
