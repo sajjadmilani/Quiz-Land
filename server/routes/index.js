@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 const { getCategories } = require('../handlers/categoryHandlers');
+const { getResultByUser } = require('../handlers/resultHandlers');
 const { getUser, authorizeUser } = require('../handlers/userHandlers');
 const { addQuiz, getQuiz, getQuizzesByUser } = require('../handlers/quizHandlers');
 const {
@@ -27,6 +28,9 @@ router.get("/api/quizzes/:userId", getQuizzesByUser);
 //User Endpoints
 router.post("/api/user/authorize", authorizeUser);
 router.get("/api/user/:sub", getUser);
+
+//Result Endpoints
+router.get("/api/results/:sub", getResultByUser);
 
 router.get("*", (req, res) => {
   res.status(404).json({

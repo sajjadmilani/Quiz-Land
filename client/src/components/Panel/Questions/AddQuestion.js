@@ -88,12 +88,12 @@ const AddQuestion = () => {
             <span>True False</span>
           </Type>
 
-          <Type selected={type === "Question"} onClick={() => typeChangeHandler("Question")}>
+          <Type selected={type === "Question"} onClick={() => typeChangeHandler("Question")} disabled="disabled">
             <TypeImage src="/images/types/question.png" />
             <span>Simple Question</span>
           </Type>
 
-          <Type selected={type === "FillBlank"} onClick={() => typeChangeHandler("FillBlank")}>
+          <Type selected={type === "FillBlank"} onClick={() => typeChangeHandler("FillBlank")} disabled="disabled">
             <TypeImage src="/images/types/fill-blank.png" />
             <span>Fill in the Blank</span>
           </Type>
