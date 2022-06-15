@@ -29,7 +29,7 @@ const startQuiz = async (req, socket) => {
     const newValues = {
       $set: {
         "players.$[].answers": [],
-        "players.$[].point": 0,
+        "players.$[].points": 0,
         "players.$[].rank": 0
       }
     };

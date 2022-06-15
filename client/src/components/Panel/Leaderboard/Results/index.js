@@ -20,9 +20,9 @@ const Result = ({ data, socketRef }) => {
     <Header>LEADERBOARD</Header>
     <Question>{data.question}</Question>
     <Stats>
-      {data.players.map(player => {
+      {data.players.sort((a, b) => b.score - a.score).map((player, index) => {
         return <Stat>
-          <Rank>{player.rank}</Rank>
+          <Rank>{index + 1}</Rank>
           <Title><BsPersonCircle size={40} /><span>{player.name}</span> </Title>
           <ScoreBar correct={player.correctCount} incorrect={player.incorrectCount} />
           <Score>{player.score}</Score>

@@ -1,5 +1,6 @@
 const { MongoClient } = require("mongodb");
 const { questionTimeOut } = require('./questionTimeOut');
+const { updateLeaderboard } = require('./updateLeaderboard');
 require("dotenv").config();
 
 const { MONGO_URI, DB_NAME } = process.env;
@@ -9,13 +10,17 @@ const options = {
   useUnifiedTopology: true,
 };
 
-const { updateLeaderboard } = require('./updateLeaderboard');
+
+let questionTimer;
 
 const nextQuestion = async (req, socket) => {
   const client = new MongoClient(MONGO_URI, options);
 
+  //clear previous 
+  clearTimeout(questionTimer);
 
   try {
+
     //Connect client
     await client.connect();
     console.log("connected!");
@@ -48,9 +53,9 @@ const nextQuestion = async (req, socket) => {
             "players.$[].answers": {
               questionId: questionData._id,
               question: questionData.question,
-              Answer: null,
-              isCorrect: null,
-              point: 0,
+              answer: null,
+              isCorrect: false,
+              points: 0,
               createDate: new Date(),
               submitDate: null
             }
@@ -69,7 +74,8 @@ const nextQuestion = async (req, socket) => {
       updateLeaderboard(questionData, quizData, result.value, socket);
 
       //Expire question after inserted time
-      setTimeout(async () => {
+      questionTimer = setTimeout(async () => {
+        console.log("timeout");
         await questionTimeOut(quizData, questionData);
         socket.broadcast.to(joinCode).emit("wait", { data: { ...questionData, questionNum: quizData.currentQuestion + 1 } });
       }, (questionData.time + 3) * 1000);

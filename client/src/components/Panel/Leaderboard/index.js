@@ -41,18 +41,12 @@ const Leaderboard = () => {
     });
 
     socketRef.current.on("updateLeaderBoard", (res) => {
-      console.log(res.data);
       setData(res.data);
       setAction("updateLeaderBoard");
+      console.log(res.data);
       setStatus("idle");
     });
 
-    socketRef.current.on("updateLeaderBoard", (res) => {
-      console.log(res.data);
-      setData(res.data);
-      setAction("updateLeaderBoard");
-      setStatus("idle");
-    });
 
     socketRef.current.on("fail", (res) => {
       setStatus("fail");
@@ -65,7 +59,7 @@ const Leaderboard = () => {
       setAlert(null);
     }, 3000);
   };
-  console.log(data);
+
   return <Wrapper>
     {status === "loading" && <Loading />}
     {alert && <AlertContainer><Alert backgroundColor={alert.backgroundColor}>{alert.text}</Alert></AlertContainer>}

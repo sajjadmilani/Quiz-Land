@@ -19,10 +19,8 @@ const updateLanding = async (req, socket) => {
     //Connect client
     //------------------------------------------------------------------------------------------
     //Queries
-    const { joinCode, name } = req;
+    const { joinCode } = req;
 
-    const room = socket.rooms[1];
-    console.log("room", room);
     const quizData = await db.collection("quizzes").findOne({ joinCode });
     const resultData = await db.collection("results").findOne({ _id: quizData.currentResult });
     const names = resultData.players.map((player) => {

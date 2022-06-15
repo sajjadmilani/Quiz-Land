@@ -1,7 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import io from "socket.io-client";
+import socketClient from "socket.io-client";
 import styled from 'styled-components';
 import Loading from '../Loading';
 import Header from './Header';
@@ -26,7 +26,8 @@ const Play = () => {
   useEffect(() => {
     setStatus("loading");
     if (user) {
-      socketRef.current = io.connect("/");
+
+      socketRef.current = socketClient.connect("/");
 
       socketRef.current.on("conAcknowledge", (res) => {
         socketRef.current.emit("joinQuiz", { joinCode, user: user.sub });
@@ -53,8 +54,8 @@ const Play = () => {
       socketRef.current.on("newQuestion", (res) => {
         setData(res.data);
         setAlert(null);
-        setAction("newQuestion");
         setQuestionNum(res.data.questionNum);
+        setAction("newQuestion");
         setStatus("idle");
       });
 
@@ -85,7 +86,7 @@ const Play = () => {
           case "nameRequest":
             return <Landing data={data} socketRef={socketRef} />;
           case "newQuestion":
-            return <Question questionData={data} />;
+            return <Question questionData={data} socketRef={socketRef} joinCode={joinCode} />;
           default:
             break;
         }
