@@ -25,8 +25,7 @@ const QuestionItem = ({ id }) => {
 
     <Container><Answers>
       {question.answers && question.answers.map((answer) => {
-        console.log(answer);
-        return <><CorrectAnswer correct={answer.isCorrect} /><Answer>{answer.text}</Answer></>;
+        return <AnswerContainer><CorrectAnswer correct={answer.isCorrect} /><Answer>{answer.text}</Answer></AnswerContainer>;
       })}
     </Answers>
     </Container>
@@ -39,7 +38,7 @@ const QuestionItem = ({ id }) => {
       </Buttons>
     </Footer>
 
-  </Wrapper>;
+  </Wrapper >;
 };
 
 const Wrapper = styled.div`
@@ -112,10 +111,15 @@ const Footer = styled.div`
   }
 `;
 const Answers = styled.div`
- display: flex;
+  display: flex;
+  flex-wrap: wrap;
  width: 100%;
- align-items: center;
 `;
+const AnswerContainer = styled.div`
+ display: flex;
+ margin-top:10px;
+`;
+
 const CorrectAnswer = styled.div`
   display: block;
   width:20px;
