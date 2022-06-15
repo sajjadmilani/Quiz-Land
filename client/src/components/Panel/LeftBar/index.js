@@ -5,7 +5,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const LeftBar = () => {
   const navigate = useNavigate();
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  const { logout, isAuthenticated, user } = useAuth0();
+
   return <Wrapper>
     <Container>
       <Logo>Quiz Land</Logo>

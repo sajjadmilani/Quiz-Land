@@ -1,13 +1,13 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import 'tippy.js/dist/tippy.css';
 import Organizer from '..';
 import Loading from '../../Loading';
 
 const Quizzes = () => {
-  const { user, isAuthenticated } = useAuth0();
+  const { user } = useAuth0();
   const [quizzes, setQuizzes] = useState([]);
   const [status, setStatus] = useState("idle");
 

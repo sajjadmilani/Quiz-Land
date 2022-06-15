@@ -10,6 +10,7 @@ const copyToClipboard = (value) => {
 const Landing = ({ data, participants, socketRef }) => {
 
   const quizLink = window.location.origin + `/play/${data.joinCode}`;
+
   const startHandler = () => {
     socketRef.current.emit("startQuiz", {
       joinCode: data.joinCode

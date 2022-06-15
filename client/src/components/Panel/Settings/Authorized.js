@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import Organizer from '..';
 
 const Authorized = () => {
-  const { user, Authorized } = useAuth0();
+  const { user } = useAuth0();
   const [status, setStatus] = useState("idle");
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {
+      setStatus("loading");
       fetch("/api/user/authorize", {
         method: "POST",
         headers: {
@@ -22,8 +23,10 @@ const Authorized = () => {
             navigate("/panel/settings");
           }
         });
+      setStatus("idle");
     }
   }, [user]);
-  return <Organizer>{console.log(user)}</Organizer>;
+
+  return <Organizer></Organizer>;
 };
 export default Authorized;

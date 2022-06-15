@@ -2,14 +2,15 @@ import styled from 'styled-components';
 
 const Answers = ({ answersList, setAnswersList, type }) => {
 
+  //Update Answer text
   const changeHandler = (index, value) => {
     const newAnswersList = [...answersList];
     newAnswersList[index] = { ...newAnswersList[index], text: value };
     setAnswersList(newAnswersList);
   };
 
+  //Select Correction answer
   const selectHandler = (position) => {
-
     const newAnswersList = [...answersList];
     newAnswersList.forEach((answer, index) => {
       const isCorrect = index === position ? true : false;
@@ -31,10 +32,10 @@ const Answers = ({ answersList, setAnswersList, type }) => {
     })}
   </Wrapper >;
 };
+
 const Wrapper = styled.div`
 text-align: center;
 width: 100%;
-
 display: grid;
 height: auto;
 gap:5px;

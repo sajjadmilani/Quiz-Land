@@ -1,4 +1,4 @@
-import { useAuth0 } from '@auth0/auth0-react';
+
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -8,7 +8,6 @@ import Loading from '../../Loading';
 import QuestionItem from './QuesionItem';
 
 const Quiz = () => {
-  const { user } = useAuth0();
   const [quiz, setQuiz] = useState({});
   const [status, setStatus] = useState("idle");
   const { id } = useParams();
@@ -19,7 +18,6 @@ const Quiz = () => {
       .then(res => res.json())
       .then(data => {
         setQuiz(data.data);
-        console.log(data.data);
         setStatus("idle");
       });
   }, []);

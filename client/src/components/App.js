@@ -11,11 +11,10 @@ import Authorized from './Panel/Settings/Authorized';
 import Leaderboard from './Panel/Leaderboard';
 import Play from './Play';
 import Join from './Panel/Quizzes/Join';
-import { useAuth0 } from '@auth0/auth0-react';
 import Results from './Panel/Results';
 
 const App = () => {
-  const { isAuthenticated } = useAuth0();
+
 
   return (
     <Router>

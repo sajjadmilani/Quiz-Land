@@ -24,12 +24,10 @@ const Leaderboard = () => {
     socketRef.current = io.connect("/");
 
     socketRef.current.on("conAcknowledge", (res) => {
-      console.log(res);
       socketRef.current.emit("organizerJoinQuiz", { joinCode });
     });
 
     socketRef.current.on("addParticipant", (res) => {
-      console.log(res);
       setParticipants(res.data);
       setAction("addParticipant");
       setStatus("idle");
@@ -49,7 +47,6 @@ const Leaderboard = () => {
 
     socketRef.current.on("finalResult", (res) => {
       setData(res.data);
-      console.log(res.data);
       setAction("finalResult");
       setStatus("idle");
     });
@@ -59,12 +56,6 @@ const Leaderboard = () => {
     });
   }, []);
 
-  const settingAlert = (alertData) => {
-    setAlert(alertData);
-    setInterval(() => {
-      setAlert(null);
-    }, 3000);
-  };
 
   return <Wrapper>
     {status === "loading" && <Loading />}
@@ -72,7 +63,7 @@ const Leaderboard = () => {
     {status === "fail" && <LoadingMessage>Oops! The Quiz not found...</LoadingMessage>}
     {status === "idle" && <>
 
-      <Header time={data?.time} number={data?.questionCounter || 0} settingAlert={settingAlert} questionNum={data?.questionNum} />
+      <Header time={data?.time} number={data?.questionCounter || 0} questionNum={data?.questionNum} />
 
       {(() => {
 
@@ -111,6 +102,7 @@ const Wrapper = styled.div`
   background-color:#1E193B;
   box-sizing: border-box;
 `;
+
 const AlertContainer = styled.div`
   background-color: rgba(0,0,0,0.7);
   width: 100%;
@@ -126,7 +118,6 @@ const Alert = styled.div`
   width:100%;
   text-align: center;
   color:#FFFFFF;
-
   padding:50px 40px;
   font-size:26px;
   box-sizing: border-box;

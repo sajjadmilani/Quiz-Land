@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Answers = ({ joinCode, answersList, type, socketRef }) => {
+const Answers = ({ joinCode, answersList, socketRef }) => {
 
   const clickHandler = (value) => {
     socketRef.current.emit("answerQuestion", {

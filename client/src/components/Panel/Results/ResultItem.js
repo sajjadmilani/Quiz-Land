@@ -1,9 +1,7 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 
 
 const ResultItem = ({ result }) => {
-  const [question, setQuestion] = useState({});
 
   return <Wrapper>
 
