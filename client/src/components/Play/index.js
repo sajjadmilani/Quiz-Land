@@ -84,9 +84,6 @@ const Play = () => {
 
   const settingAlert = (alertData) => {
     setAlert(alertData);
-    setTimeout(() => {
-
-    }, 2000);
   };
 
   return <Wrapper>
