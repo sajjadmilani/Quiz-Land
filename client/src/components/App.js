@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './Pages/Home';
-import About from './Pages/About';
 import GlobalStyles from './GlobalStyles';
 import AddQuestion from './Panel/Questions/AddQuestion';
 import AddQuiz from './Panel/Quizzes/AddQuiz';
@@ -15,21 +14,15 @@ import Join from './Panel/Quizzes/Join';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const App = () => {
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
-  //  <>
-  //   {console.log(user)}
-  //   <button onClick={() => logout()}>Sign Out</button>
-  //   <button onClick={() => loginWithRedirect()}>Sign In</button>
-  // </>;
+  const { isAuthenticated } = useAuth0();
 
   return (
     <Router>
       <GlobalStyles />
-      {/* <NavBar /> */}
+
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/about" element={<About />} />
+
         {isAuthenticated && <>
           <Route path="/play/:joinCode" element={<Play />} />
           <Route path="/panel/authorized" element={<Authorized />} />
@@ -43,7 +36,7 @@ const App = () => {
           <Route path="/panel/quiz/:id/edit" element={<Quiz />} />
         </>}
       </Routes>
-      {/* <Footer /> */}
+
     </Router>
   );
 };

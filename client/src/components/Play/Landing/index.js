@@ -10,7 +10,7 @@ const Landing = ({ data, socketRef }) => {
     });
   };
   return <Wrapper>
-    <Header>Quiz: {data.name}</Header>
+    <Header>Quiz Name: {data.name}</Header>
     <NameInput value={name} onChange={(ev) => setName(ev.target.value)} placeholder="Your name..." />
     <Start onClick={submitHandler}>Start</Start>
   </Wrapper>;

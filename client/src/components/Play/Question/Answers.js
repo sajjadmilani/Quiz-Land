@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 
 const Answers = ({ joinCode, answersList, type, socketRef }) => {
-  console.log(joinCode, answersList, type, socketRef);
+
   const clickHandler = (value) => {
-    alert(value);
-    console.log(socketRef);
     socketRef.current.emit("answerQuestion", {
       joinCode: joinCode,
       insertedAnswer: value

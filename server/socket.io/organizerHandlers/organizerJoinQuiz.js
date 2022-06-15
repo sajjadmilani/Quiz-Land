@@ -30,16 +30,16 @@ const organizerJoinQuiz = async (req, socket) => {
         $set: { currentQuestion: 0, organizerSocketId: socket.id, status: "pendingJoin" }
       };
       const quizUpdate = await db.collection("quizzes").updateOne(query, newValue);
-      // if (quizUpdate.modifiedCount === 1) {
-      //   const resultStatus = await db.collection("results").insertOne({
-      //     quizId: quizData._id,
-      //     name: quizData.name,
-      //     userId: quizData.userId,
-      //     players: [],
-      //     joinCode: quizData.joinCode,
-      //   });
-      //   await db.collection("quizzes").updateOne({ joinCode }, { $set: { currentResult: resultStatus.insertedId } });
-      // }
+      if (quizUpdate.modifiedCount === 1) {
+        const resultStatus = await db.collection("results").insertOne({
+          quizId: quizData._id,
+          name: quizData.name,
+          userId: quizData.userId,
+          players: [],
+          joinCode: quizData.joinCode,
+        });
+        await db.collection("quizzes").updateOne({ joinCode }, { $set: { currentResult: resultStatus.insertedId } });
+      }
 
       const resultData = await db.collection("results").findOne({ _id: quizData.currentResult });
 
