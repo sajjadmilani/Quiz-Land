@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import Button from '../Button';
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth0 } from '@auth0/auth0-react';
 
 const LeftBar = () => {
   const navigate = useNavigate();
-
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   return <Wrapper>
     <Container>
       <Logo>Quiz Land</Logo>
@@ -15,7 +16,7 @@ const LeftBar = () => {
       <NavItem to="/panel/quizzes">Quizzes</NavItem>
       <NavItem to="/">Reports</NavItem>
       <NavItem to="/panel/settings">Settings</NavItem>
-      <NavItem to="/">Log out</NavItem>
+      <LogOut onClick={() => logout()}>Log out</LogOut>
     </Nav>
   </Wrapper>;
 };
@@ -62,4 +63,21 @@ text-decoration: none;
   border-right:3px solid #4157b2;
 }
 `;
+const LogOut = styled.button`
+width: 100%;
+box-sizing: border-box;
+color:black;
+padding: 12px 20px;
+display: block;
+text-decoration: none;
+text-align: left;
+cursor: pointer;
+border: none;
+font-size: 18px;
+&:hover{
+  background: #f2f2f2;
+  border-right:3px solid #4157b2;
+}
+`;
+
 export default LeftBar;

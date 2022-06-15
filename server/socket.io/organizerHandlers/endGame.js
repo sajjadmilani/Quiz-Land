@@ -38,6 +38,8 @@ const endGame = async (req, socket) => {
       });
     });
 
+    socket.emit("finalResult", { data: { name: resultData.players.find(player => player.rank === 1).name } });
+
   }
   catch (error) {
     console.log(error);

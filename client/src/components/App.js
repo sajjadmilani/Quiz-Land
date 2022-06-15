@@ -12,8 +12,15 @@ import Authorized from './Panel/Settings/Authorized';
 import Leaderboard from './Panel/Leaderboard';
 import Play from './Play';
 import Join from './Panel/Quizzes/Join';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const App = () => {
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  //  <>
+  //   {console.log(user)}
+  //   <button onClick={() => logout()}>Sign Out</button>
+  //   <button onClick={() => loginWithRedirect()}>Sign In</button>
+  // </>;
 
   return (
     <Router>
@@ -23,16 +30,18 @@ const App = () => {
         <Route exact path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/about" element={<About />} />
-        <Route path="/play/:joinCode" element={<Play />} />
-        <Route path="/panel/authorized" element={<Authorized />} />
-        <Route path="/panel/settings" element={<Settings />} />
-        <Route exact path="/panel" element={<Organizer />} />
-        <Route exact path="/panel/quizzes" element={<Quizzes />} />
-        <Route exact path="/panel/leaderboard/:joinCode" element={<Leaderboard />} />
-        <Route exact path="/panel/quiz/join" element={<Join />} />
-        <Route exact path="/panel/quiz/add" element={<AddQuiz />} />
-        <Route exact path="/panel/question/add/quiz/:id" element={<AddQuestion />} />
-        <Route path="/panel/quiz/:id/edit" element={<Quiz />} />
+        {isAuthenticated && <>
+          <Route path="/play/:joinCode" element={<Play />} />
+          <Route path="/panel/authorized" element={<Authorized />} />
+          <Route path="/panel/settings" element={<Settings />} />
+          <Route exact path="/panel" element={<Organizer />} />
+          <Route exact path="/panel/quizzes" element={<Quizzes />} />
+          <Route exact path="/panel/leaderboard/:joinCode" element={<Leaderboard />} />
+          <Route exact path="/panel/quiz/join" element={<Join />} />
+          <Route exact path="/panel/quiz/add" element={<AddQuiz />} />
+          <Route exact path="/panel/question/add/quiz/:id" element={<AddQuestion />} />
+          <Route path="/panel/quiz/:id/edit" element={<Quiz />} />
+        </>}
       </Routes>
       {/* <Footer /> */}
     </Router>

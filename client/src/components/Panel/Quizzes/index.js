@@ -25,6 +25,9 @@ const Quizzes = () => {
   }, [user]);
 
 
+  const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+
+
   return <>
     <Organizer>
       {status === "loading" && <Loading />}
@@ -34,6 +37,22 @@ const Quizzes = () => {
             return <Quiz>
               <Container>
                 <Title>{quiz.name}</Title>
+
+                <Detail>
+                  <Name>Category:</Name>
+                  <Value>{quiz.category}</Value>
+                </Detail>
+
+                <Detail>
+                  <Name>Questions Count:</Name>
+                  <Value>{quiz.questions.length}</Value>
+                </Detail>
+
+                <Detail>
+                  <Name>Created Date:</Name>
+                  <Value>{new Date(quiz.createDate).toLocaleDateString('en-us', options)}</Value>
+                </Detail>
+
               </Container>
               <Footer>
                 <Buttons>
@@ -59,18 +78,10 @@ margin-top:20px;
 background-color:#FFFFFF;
 `;
 
-const JoinCode = styled.span`
-  padding:10px 20px;
-  background-color: #ffffff;
-  border:1px dashed #cccccc;
-  letter-spacing: 10px;
-  font-size:19px;
-  margin-left:10px;
-  cursor: pointer;
-`;
+
 const Title = styled.h2`
 margin-top:20px;
-margin-bottom:10px;
+margin-bottom:20px;
 font-size: 22px;
 `;
 
@@ -100,7 +111,24 @@ const Footer = styled.div`
     margin-bottom: 50px;
   }
 `;
-
+const Detail = styled.div`
+  margin-bottom:10px;
+  display: flex;
+  align-items: center;
+  border:1px solid #cccccc;
+  width: 50%;
+  @media (max-width:700px) {
+    width: 100%;
+  }
+`;
+const Name = styled.div`
+  margin-right: 10px;
+  background-color: #f6f6f6;
+  padding:10px
+`;
+const Value = styled.div`
+padding:10px
+`;
 const Buttons = styled.div`
   @media (max-width: 600px) {
       margin-top:10px;

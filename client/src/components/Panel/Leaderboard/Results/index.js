@@ -25,7 +25,7 @@ const Result = ({ data, socketRef }) => {
   return <Wrapper>
     <Buttons>
       <End onClick={endGame}>End Quiz</End>
-      {checkQuestionRemains(data.questionCounter) && <Next onClick={nextQuestion}>Next Question</Next>}
+      {data.questionCounter && checkQuestionRemains(data.questionCounter) && <Next onClick={nextQuestion}>Next Question</Next>}
     </Buttons>
     <Header>LEADERBOARD</Header>
     <Question>{data.question}</Question>
