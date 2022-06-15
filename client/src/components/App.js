@@ -12,6 +12,7 @@ import Leaderboard from './Panel/Leaderboard';
 import Play from './Play';
 import Join from './Panel/Quizzes/Join';
 import { useAuth0 } from '@auth0/auth0-react';
+import Results from './Panel/Results';
 
 const App = () => {
   const { isAuthenticated } = useAuth0();
@@ -22,19 +23,18 @@ const App = () => {
 
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route path="/play/:joinCode" element={<Play />} />
+        <Route path="/panel/authorized" element={<Authorized />} />
+        <Route path="/panel/settings" element={<Settings />} />
+        <Route exact path="/panel" element={<Organizer />} />
+        <Route exact path="/panel/quizzes" element={<Quizzes />} />
+        <Route exact path="/panel/results" element={<Results />} />
+        <Route exact path="/panel/leaderboard/:joinCode" element={<Leaderboard />} />
+        <Route exact path="/panel/quiz/join" element={<Join />} />
+        <Route exact path="/panel/quiz/add" element={<AddQuiz />} />
+        <Route exact path="/panel/question/add/quiz/:id" element={<AddQuestion />} />
+        <Route path="/panel/quiz/:id/edit" element={<Quiz />} />
 
-        {isAuthenticated && <>
-          <Route path="/play/:joinCode" element={<Play />} />
-          <Route path="/panel/authorized" element={<Authorized />} />
-          <Route path="/panel/settings" element={<Settings />} />
-          <Route exact path="/panel" element={<Organizer />} />
-          <Route exact path="/panel/quizzes" element={<Quizzes />} />
-          <Route exact path="/panel/leaderboard/:joinCode" element={<Leaderboard />} />
-          <Route exact path="/panel/quiz/join" element={<Join />} />
-          <Route exact path="/panel/quiz/add" element={<AddQuiz />} />
-          <Route exact path="/panel/question/add/quiz/:id" element={<AddQuestion />} />
-          <Route path="/panel/quiz/:id/edit" element={<Quiz />} />
-        </>}
       </Routes>
 
     </Router>

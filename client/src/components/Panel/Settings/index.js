@@ -35,17 +35,26 @@ const Settings = () => {
         </Header>
 
         <Container>
-          <Label>Name:</Label>
-          <Input value={profile.given_name} />
-          <p>Category: </p>
-          stats will be here...
+          <InputGroup>
+            <Label>Name:</Label>
+            <Input value={profile.given_name} />
+          </InputGroup>
+
+          <InputGroup>
+            <Label>LastName:</Label>
+            <Input value={profile.family_name} />
+          </InputGroup>
+
+          <InputGroup>
+            <Label>Email:</Label>
+            <Input value={profile.email} />
+          </InputGroup>
         </Container>
 
         <Footer>
 
           <Buttons>
-            <Delete>Delete</Delete>
-            <Start>Start</Start>
+            <Start>Save</Start>
           </Buttons>
 
         </Footer>
@@ -76,14 +85,7 @@ const Header = styled.div`
     }
   }
 `;
-const QuizLink = styled.a`
-cursor: pointer;
 
-color:#4157b2;
-padding-right:30px;
-box-sizing: border-box;
-text-align: right;
-`;
 const PageTitle = styled.h2`
   margin-top:20px;
   margin-bottom:30px;
@@ -97,47 +99,6 @@ const PageTitle = styled.h2`
   border-left: 3px solid #4157b2;
   box-sizing: border-box;
 `;
-const JoinCode = styled.span`
-  padding:10px 20px;
-  background-color: #ffffff;
-  border:1px dashed #cccccc;
-  letter-spacing: 10px;
-  font-size:19px;
-  margin-left:10px;
-  cursor: pointer;
-`;
-const Title = styled.h2`
-margin-top:20px;
-margin-bottom:10px;
-font-size: 22px;
-`;
-
-const Name = styled.input`
-padding:12px;
-box-sizing: border-box;
-font-size:18px;
-width: 100%;
-`;
-
-const Catogories = styled.div`
-  display: flex;
-  flex-wrap:wrap;
-  gap:10px;
-`;
-
-const Category = styled.button`
-  background-color:${props => props.selected ? "#2d9da6" : "#f2f2f2"};
-  color:${props => props.selected ? "#ffffff" : "#000000"};
-  border:none;
-  font-size: 18px;
-  padding:10px;
-  border-radius: 5px;;
-  &:hover{
-    background-color:  #2d9da6;
-    color: #FFFFFF;
-    cursor: pointer;
-  }
-`;
 
 const Container = styled.div`
   width: 100%;
@@ -147,6 +108,7 @@ const Container = styled.div`
   box-sizing: border-box;
   height: fit-content;
   display: flex;
+  flex-direction: column;
 
 `;
 const Label = styled.label`
@@ -175,29 +137,13 @@ const Footer = styled.div`
 `;
 
 const Buttons = styled.div`
+display: flex;
+justify-content: flex-end;
   @media (max-width: 600px) {
       margin-top:10px;
   }
 `;
-const AddQuestion = styled(Link)`
-  padding:10px 20px;
-  font-size:19px;
-  margin-left:10px;
-  background-color: #EFA929;
-  text-decoration: none;
-    color: white;
-    border: none;
-  cursor: pointer;
-`;
-const Delete = styled.button`
-  padding:10px 20px;
-  font-size:19px;
-  margin-left:10px;
-  background-color: #d5546d;
-    color: white;
-    border: none;
-  cursor: pointer;
-`;
+
 const Start = styled.button`
   padding:10px 20px;
   font-size:19px;
@@ -206,5 +152,10 @@ const Start = styled.button`
     color: white;
     border: none;
   cursor: pointer;
+`;
+
+const InputGroup = styled.div`
+  width: 100%;
+  margin-top:20px;
 `;
 export default Settings;

@@ -53,8 +53,8 @@ const AddQuiz = () => {
             <Name type="text" value={name} placeholder="Name of quiz..." onChange={(ev) => setName(ev.target.value)} />
             <Title>Choose a category:</Title>
             <Catogories>
-              {categories.map((category) => {
-                return <Category onClick={() => setSelectedCategory(category.name)} selected={selectedCategory === category.name}>{category.name}</Category>;
+              {categories.map((category, index) => {
+                return <Category key={index} onClick={() => setSelectedCategory(category.name)} selected={selectedCategory === category.name}>{category.name}</Category>;
               })}
             </Catogories>
 

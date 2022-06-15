@@ -10,7 +10,6 @@ const Quizzes = () => {
   const { user, isAuthenticated } = useAuth0();
   const [quizzes, setQuizzes] = useState([]);
   const [status, setStatus] = useState("idle");
-  console.log(quizzes);
 
   useEffect(() => {
     setStatus("loading");
@@ -34,7 +33,7 @@ const Quizzes = () => {
       {status === "idle" && <>
         <Wrapper>
           {quizzes?.map((quiz) => {
-            return <Quiz>
+            return <Quiz key={quiz._id}>
               <Container>
                 <Title>{quiz.name}</Title>
 

@@ -53,7 +53,7 @@ const Quiz = () => {
             </Footer>
           </QuizContainer>
           {quiz.questions?.map((question, index) => {
-            return <QuestionItem id={question.questionId} index={index} />;
+            return <QuestionItem key={index} id={question.questionId} index={index} />;
           })}
         </Wrapper></>}
 

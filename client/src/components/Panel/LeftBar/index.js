@@ -9,26 +9,29 @@ const LeftBar = () => {
   return <Wrapper>
     <Container>
       <Logo>Quiz Land</Logo>
-      <Name>Sajjad Milani</Name>
+      <Name>{isAuthenticated && user.name ? user.name : ""}</Name>
       <Button title="Create a Quiz" clickHandler={() => navigate("/panel/quiz/add")} />
     </Container>
     <Nav>
       <NavItem to="/panel/quizzes">Quizzes</NavItem>
-      <NavItem to="/">Reports</NavItem>
+      <NavItem to="/panel/results">Reports</NavItem>
       <NavItem to="/panel/settings">Settings</NavItem>
       <LogOut onClick={() => logout()}>Log out</LogOut>
     </Nav>
   </Wrapper>;
 };
+
 const Wrapper = styled.div`
   background:white;
     width: 200px;
     box-sizing: border-box;
     height: 100vh;
 `;
+
 const Container = styled.div`
   padding:0 12px;
 `;
+
 const Logo = styled.span`
   font-weight: bold;
   color:#4157b2;
@@ -40,6 +43,7 @@ const Logo = styled.span`
   justify-content: center;
   display: flex;
 `;
+
 const Name = styled.div`
   margin:20px 12px;
   text-align: center;

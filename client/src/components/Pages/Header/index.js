@@ -10,7 +10,7 @@ const Header = () => {
       <Logo>[ Quiz Land ]</Logo>
       {!isAuthenticated ?
         <Button onClick={() => loginWithRedirect()}>Sign In / Sing Up</Button> : <div>
-          <StyledLink to="/panel">Control Panel</StyledLink>
+          <StyledLink to="/panel/quizzes">Control Panel</StyledLink>
           <Button onClick={() => logout()}>Sign Out</Button>
         </div>
       }
