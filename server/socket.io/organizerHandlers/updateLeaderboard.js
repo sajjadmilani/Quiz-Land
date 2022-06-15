@@ -8,7 +8,7 @@ const updateLeaderboard = async (questionData, quizData, result, socket) => {
     const responseData = {
       players: [],
       time: questionData.time,
-      questionCounter: `${quizData.currentQuestion + 1}/${quizData.questions.length}`,
+      questionCounter: `${quizData.currentQuestion}/${quizData.questions.length}`,
       question: questionData.question,
       joinCode: quizData.joinCode,
       questionNum: quizData.currentQuestion + 1
@@ -17,12 +17,12 @@ const updateLeaderboard = async (questionData, quizData, result, socket) => {
 
     result.players.forEach((player) => {
       correctCount = player.answers.filter((answer) => answer.isCorrect === true).length;
-      incorrectCount = player.answers.filter((answer) => answer.isCorrect === false && answer.answer !== null);
+      incorrectCount = player.answers.filter((answer) => answer.isCorrect === false && answer.answer !== null).length;
       responseData.players.push({
         rank: player.rank,
         name: player.name,
         correctCount: (correctCount / quizData.questions.length) * 100,
-        incorrectCount: (incorrectCount.length / quizData.questions.length) * 100,
+        incorrectCount: (incorrectCount / quizData.questions.length) * 100,
         score: player.points
       });
     });

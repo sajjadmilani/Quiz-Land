@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { BsHouse } from "react-icons/bs";
 import { Link } from 'react-router-dom';
-
-
 import styled from 'styled-components';
+
 
 const Header = ({ number, time, settingAlert, questionNum }) => {
 
@@ -55,7 +54,8 @@ const Header = ({ number, time, settingAlert, questionNum }) => {
       ? <h1 style={{ color: "#D5546D" }}> 00:00 </h1>
       : <h1> {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h1>
     }</Timer>}
-    <QuestionCount>{number}</QuestionCount>
+
+    {number !== 0 && <QuestionCount> {number}</QuestionCount>}
   </Wrapper>;
 };
 

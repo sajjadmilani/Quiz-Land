@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Answers from './Answers';
 import Loading from '../../Loading';
-import { useNavigate } from 'react-router-dom';
 
 const initialAnswers = (type) => {
   switch (type) {
@@ -22,15 +21,15 @@ const initialAnswers = (type) => {
 const Question = ({ joinCode, questionData, socketRef }) => {
   console.log(questionData);
   const [question, setQuestion] = useState("");
-  const [type, setType] = useState(questionData.type);
-  const [answers, setAnswers] = useState(initialAnswers(type));
+  const [answers, setAnswers] = useState(initialAnswers(questionData.type));
   const [status, setStatus] = useState("idle");
 
-  const navigate = useNavigate();
 
   useEffect(() => {
+    setStatus("loading");
     setQuestion(questionData.question);
     setAnswers(questionData.answers);
+    setStatus("idle");
   }, [questionData]);
 
 
@@ -40,8 +39,7 @@ const Question = ({ joinCode, questionData, socketRef }) => {
     <QuestionContainer>
       {status === "loading" && <Loader><Loading /></Loader>}
       <QuestionBox>{question}</QuestionBox>
-      {type && <Answers answersList={answers} setAnswersList={setAnswers} socketRef={socketRef} type={type} joinCode={joinCode} />}
-
+      {questionData.type && <Answers answersList={answers} setAnswersList={setAnswers} socketRef={socketRef} type={questionData.type} joinCode={joinCode} />}
     </QuestionContainer>
 
   </Wrapper>;
@@ -54,9 +52,7 @@ const Wrapper = styled.div`
   background-color:#312B4F;
   box-sizing: border-box;
   display: flex;
-  @media (max-width:900px) {
-    width:auto ;
-  }
+
 `;
 
 

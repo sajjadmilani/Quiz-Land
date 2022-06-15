@@ -1,4 +1,3 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import io from "socket.io-client";
@@ -17,7 +16,7 @@ const Leaderboard = () => {
   const [participants, setParticipants] = useState([]);
   const [action, setAction] = useState("");
   const { joinCode } = useParams();
-  const { user } = useAuth0();
+
 
   useEffect(() => {
     setStatus("loading");
@@ -81,9 +80,6 @@ const Leaderboard = () => {
         }
       })()}
 
-      {/* {quiz && quiz.questions[0] && <Question questionData={quiz.questions[0]} />} */}
-      {/* <button onClick={clickHandler} >test</button>
-        {value.map((test) => { return <div style={{ fontSize: "40px", marginLeft: "40px", background: "pink" }}>{test}</div>; })} */}
     </>}
   </Wrapper>;
 };

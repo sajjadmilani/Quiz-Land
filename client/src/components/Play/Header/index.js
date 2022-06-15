@@ -61,7 +61,7 @@ const Header = ({ number, time, settingAlert, questionNum }) => {
       : <h1> {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h1>
     }</Timer>}
 
-    <QuestionCount>{number}</QuestionCount>
+    {number && <QuestionCount>{number}</QuestionCount>}
   </Wrapper>;
 };
 
