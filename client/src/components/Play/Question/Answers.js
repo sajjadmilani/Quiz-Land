@@ -53,20 +53,24 @@ const AnswerContainer = styled.div`
   }
 
   &:nth-of-type(1){
-    background-color: #2D70AE;
-    border-color:  #2D70AE;
+    background-color: #EFA929;
+    border-color:  #EFA929;
+
   }
   &:nth-of-type(2){
+
     background-color: #2D9DA6;
     border-color:  #2D9DA6;
   }
   &:nth-of-type(3){
-    background-color: #EFA929;
-    border-color:  #EFA929;
-  }
-  &:nth-of-type(4){
     background-color: #D5546D;
     border-color:  #D5546D;
+
+  }
+  &:nth-of-type(4){
+
+    background-color: #2D70AE;
+    border-color:  #2D70AE;
   }
 `;
 

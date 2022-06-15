@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 
-const Header = ({ number, time, settingAlert, questionNum }) => {
+const Header = ({ number, time, questionNum }) => {
 
   const initialMinutes = Math.floor(time / 60);
   const initialSeconds = Math.floor(time % 60);

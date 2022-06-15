@@ -96,7 +96,7 @@ const Value = styled.div`
 `;
 const Icon = styled.div`
 margin-right: -30px;
-opacity: 0.5;
+opacity: 0.7;
 `;
 
 export default Result;

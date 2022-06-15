@@ -6,6 +6,7 @@ import Loading from '../../Loading';
 import Header from './Header';
 import Landing from './Landing';
 import Results from './Results';
+import FinalResult from './Results/FinalResult';
 
 const Leaderboard = () => {
 
@@ -42,10 +43,15 @@ const Leaderboard = () => {
     socketRef.current.on("updateLeaderBoard", (res) => {
       setData(res.data);
       setAction("updateLeaderBoard");
-      console.log(res.data);
       setStatus("idle");
     });
 
+    socketRef.current.on("finalResult", (res) => {
+      setData(res.data);
+      console.log(res.data);
+      setAction("finalResult");
+      setStatus("idle");
+    });
 
     socketRef.current.on("fail", (res) => {
       setStatus("fail");
@@ -65,17 +71,25 @@ const Leaderboard = () => {
     {status === "fail" && <LoadingMessage>Oops! The Quiz not found...</LoadingMessage>}
     {status === "idle" && <>
 
-      <Header time={data?.time} number={data?.questionCounter || 0} settingAlert={settingAlert} questionNum={data?.questionNum || 0} />
+      <Header time={data?.time} number={data?.questionCounter || 0} settingAlert={settingAlert} questionNum={data?.questionNum} />
 
       {(() => {
+
         switch (action) {
+
+          case "finalResult": {
+            return <FinalResult winnerName={data.name} />;
+          }
           case "waitForJoin":
           case "addParticipant": {
             return <Landing data={data} participants={participants} socketRef={socketRef} />;
           }
           case "updateLeaderBoard": {
-            return <Results data={data} socketRef={socketRef} />;
+            if (data && data.players) {
+              return <Results data={data} socketRef={socketRef} />;
+            }
           }
+
 
         }
       })()}
