@@ -10,14 +10,13 @@ const options = {
 };
 
 
-
+//Set inserted name by player
 const setName = async (req, socket) => {
   const client = new MongoClient(MONGO_URI, options);
 
   try {
     //Connect client
     await client.connect();
-    console.log("connected!");
     const db = client.db(DB_NAME);
     //Connect client
     //------------------------------------------------------------------------------------------
@@ -40,7 +39,6 @@ const setName = async (req, socket) => {
   finally {
     //Close client
     client.close();
-    console.log("disconnected!");
     //Close client
   }
 };

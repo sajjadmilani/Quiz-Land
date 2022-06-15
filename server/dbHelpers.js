@@ -13,7 +13,6 @@ const mongoCreate = async (collectionName, query) => {
 
     //Connect client
     await client.connect();
-    console.log("connected!");
     const db = client.db(DB_NAME);
     //Connect client
     //------------------------------------------------------------------------------------------
@@ -26,7 +25,6 @@ const mongoCreate = async (collectionName, query) => {
 
     //Close client
     client.close();
-    console.log("disconnected!");
     //Close client
 
     return result;
@@ -38,7 +36,6 @@ const mongoReadOne = async (collectionName, query) => {
 
     //Connect client
     await client.connect();
-    console.log("connected!");
     const db = client.db(DB_NAME);
     //Connect client
     //------------------------------------------------------------------------------------------
@@ -48,7 +45,6 @@ const mongoReadOne = async (collectionName, query) => {
 
     //Close client
     client.close();
-    console.log("disconnected!");
     //Close client
 
     return result;
@@ -59,7 +55,6 @@ const mongoRead = async (collectionName, query) => {
 
     //Connect client
     await client.connect();
-    console.log("connected!");
     const db = client.db(DB_NAME);
     //Connect client
     //------------------------------------------------------------------------------------------
@@ -69,7 +64,6 @@ const mongoRead = async (collectionName, query) => {
 
     //Close client
     client.close();
-    console.log("disconnected!");
     //Close client
 
     return result;
@@ -80,7 +74,6 @@ const mongoReadLimit = async (collectionName, query, skip, limit) => {
 
     //Connect client
     await client.connect();
-    console.log("connected!");
     const db = client.db(DB_NAME);
     //Connect client
     //------------------------------------------------------------------------------------------
@@ -91,7 +84,6 @@ const mongoReadLimit = async (collectionName, query, skip, limit) => {
 
     //Close client
     client.close();
-    console.log("disconnected!");
     //Close client
 
     return [total, result];
@@ -102,7 +94,6 @@ const mongoReadDistinct = async (collectionName, query, category) => {
 
     //Connect client
     await client.connect();
-    console.log("connected!");
     const db = client.db(DB_NAME);
     //Connect client
     //------------------------------------------------------------------------------------------
@@ -113,7 +104,6 @@ const mongoReadDistinct = async (collectionName, query, category) => {
 
     //Close client
     client.close();
-    console.log("disconnected!");
     //Close client
 
     return [... new Set(result)];
@@ -126,7 +116,6 @@ const mongoUpdateOne = async (collectionName, query, newValues) => {
     console.log(newValues);
     //Connect client
     await client.connect();
-    console.log("connected!");
     const db = client.db(DB_NAME);
     //Connect client
     //------------------------------------------------------------------------------------------
@@ -137,7 +126,6 @@ const mongoUpdateOne = async (collectionName, query, newValues) => {
 
     //Close client
     client.close();
-    console.log("disconnected!");
     //Close client
 
     return result;
@@ -149,7 +137,6 @@ const mongoDelete = async (collectionName, query) => {
 
     //Connect client
     await client.connect();
-    console.log("connected!");
     const db = client.db(DB_NAME);
     //Connect client
     //------------------------------------------------------------------------------------------
@@ -160,7 +147,6 @@ const mongoDelete = async (collectionName, query) => {
 
     //Close client 
     client.close();
-    console.log("disconnected!");
     //Close client
 
     return result;

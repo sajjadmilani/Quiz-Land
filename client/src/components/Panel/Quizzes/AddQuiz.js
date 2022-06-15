@@ -54,7 +54,7 @@ const AddQuiz = () => {
             <Title>Choose a category:</Title>
             <Catogories>
               {categories.map((category) => {
-                return <Category onClick={() => setSelectedCategory(category)} selected={selectedCategory === category}>{category}</Category>;
+                return <Category onClick={() => setSelectedCategory(category.name)} selected={selectedCategory === category.name}>{category.name}</Category>;
               })}
             </Catogories>
 

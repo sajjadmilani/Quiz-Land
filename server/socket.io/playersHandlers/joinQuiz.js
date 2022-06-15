@@ -7,13 +7,14 @@ const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
+
+//Player join handler
 const joinQuiz = async (req, socket) => {
   const client = new MongoClient(MONGO_URI, options);
 
   try {
     //Connect client
     await client.connect();
-    console.log("connected!");
     const db = client.db(DB_NAME);
     //Connect client
     //------------------------------------------------------------------------------------------
@@ -71,7 +72,6 @@ const joinQuiz = async (req, socket) => {
   finally {
     //Close client
     client.close();
-    console.log("disconnected!");
     //Close client
   }
 };

@@ -8,13 +8,13 @@ const options = {
   useUnifiedTopology: true,
 };
 
+//Update organizer landing page handler
 const updateLanding = async (req, socket) => {
   const client = new MongoClient(MONGO_URI, options);
 
   try {
     //Connect client
     await client.connect();
-    console.log("connected!");
     const db = client.db(DB_NAME);
     //Connect client
     //------------------------------------------------------------------------------------------
@@ -22,7 +22,9 @@ const updateLanding = async (req, socket) => {
     const { joinCode } = req;
 
     const quizData = await db.collection("quizzes").findOne({ joinCode });
+
     const resultData = await db.collection("results").findOne({ _id: quizData.currentResult });
+
     const names = resultData.players.map((player) => {
       return player.name;
     });
@@ -35,7 +37,6 @@ const updateLanding = async (req, socket) => {
   finally {
     //Close client
     client.close();
-    console.log("disconnected!");
     //Close client
   }
 };

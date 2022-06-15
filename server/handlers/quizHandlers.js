@@ -1,18 +1,20 @@
-const { query } = require('express');
+
 const { ObjectId } = require('mongodb');
-const { mongoCreate, mongoRead, mongoReadOne, mongoReadLimit } = require('../dbHelpers');
+const { mongoCreate, mongoReadOne, mongoReadLimit } = require('../dbHelpers');
 
-
+//Add a quiz
 const addQuiz = async (req, res) => {
   const { name, category, user } = req.body;
 
   try {
 
+    //If required data not inserted
     if (!(name && category && user)) {
       return res.status(400).json({ status: 400, message: "Not all required values have been sent!" });
     }
-    let randomJoinCode = "";
 
+    //Generate a random unique joinCode
+    let randomJoinCode = "";
     while (randomJoinCode === "") {
       const isExist = await mongoReadOne("quizzes", { joinCode: randomJoinCode });
       if (!isExist) {
@@ -20,6 +22,7 @@ const addQuiz = async (req, res) => {
       }
     }
 
+    //Insert new quiz
     const query = {
       name,
       category,
@@ -28,7 +31,6 @@ const addQuiz = async (req, res) => {
       userId: user.sub,
       questions: []
     };
-    console.log(query);
     const result = await mongoCreate("quizzes", query);
 
     (result.insertedId) ?
@@ -41,7 +43,7 @@ const addQuiz = async (req, res) => {
   }
 };
 
-
+//Get a Quiz by Id
 const getQuiz = async (req, res) => {
   const _id = req.params._id;
   const query = { _id: ObjectId(_id) };
@@ -56,12 +58,13 @@ const getQuiz = async (req, res) => {
   }
 };
 
+//Get all quizzes by user
 const getQuizzesByUser = async (req, res) => {
   const { userId } = req.params;
   const query = { userId };
   try {
     const [total, quizzes] = await mongoReadLimit("quizzes", query, 0, 20);
-    console.log(quizzes);
+
     quizzes ?
       res.status(200).json({ status: 200, total, data: quizzes }) :
       res.status(404).json({ status: 404, message: "Not found!" });
