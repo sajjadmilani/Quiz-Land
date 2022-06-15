@@ -1,4 +1,6 @@
 const { MongoClient } = require("mongodb");
+const { categories } = require("./data");
+
 require("dotenv").config();
 
 const { MONGO_URI, DB_NAME } = process.env;
@@ -8,15 +10,8 @@ const options = {
   useUnifiedTopology: true,
 };
 
-const { mongoReadOne, mongoUpdateOne } = require('../dbHelpers');
-const { updateLanding } = require('./organizerHandlers');
-
-
-
-const setName = async (req, socket) => {
-
+const batchImport = async () => {
   const client = new MongoClient(MONGO_URI, options);
-
   try {
     //Connect client
     await client.connect();
@@ -26,26 +21,36 @@ const setName = async (req, socket) => {
     //------------------------------------------------------------------------------------------
     //Queries
 
-    const { joinCode } = req;
-    const resultData = await db.collection("results").findOne({ joinCode });
-    const query = { joinCode, "players.socketId": socket.id };
-    const newValues = { $set: { "players.$.name": req.name } };
-    await db.collection("results").updateOne(query, newValues);
-    socket.join(joinCode);
-    await updateLanding(req, socket);
-    socket.emit("wait", { data: resultData });
+    //Insert each category to collection
+    categories.forEach(async (category) => {
+      await db.collection("categories").insertOne({ name: category });
+    });
+
+
+    //Create questions collection
+    await db.createCollection("questions");
+
+    //Create quizzes collection
+    await db.createCollection("quizzes");
+
+    //Create result collection
+    await db.createCollection("result");
+
+    //Create Users collection
+    await db.createCollection("users");
   }
+
   catch (error) {
     console.log(error);
   }
+
   finally {
     //Close client
     client.close();
     console.log("disconnected!");
     //Close client
   }
+
 };
 
-module.exports = {
-  setName
-};
+batchImport();

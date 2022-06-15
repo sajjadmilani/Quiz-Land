@@ -9,27 +9,29 @@ const options = {
   useUnifiedTopology: true,
 };
 
-
+//Add question to questions collection also targeted quiz
 const addQuestion = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   const { quiz, type, difficulty, point, time, question, answers, userId } = req.body;
   try {
     //Connect client
     await client.connect();
-    console.log("connected!");
     const db = client.db(DB_NAME);
     //Connect client
     //------------------------------------------------------------------------------------------
     //Queries
+
+    //Insert Question to questions collection
     const questionData = await db.collection("questions").insertOne({ quiz: ObjectId(quiz), type, difficulty, point, time, question, answers, userId });
-    console.log(questionData);
     const quizQuery = { _id: ObjectId(quiz) };
+
+    //Find targeted quiz and push question to array of questions
     const quizData = await db.collection("quizzes").findOne(quizQuery);
     const questions = [...quizData.questions];
-
     questions.push({ questionId: questionData.insertedId, questionType: type });
+
+    //Update questions array in quizzes
     const result = await db.collection("quizzes").updateOne(quizQuery, { $set: { questions: questions } });
-    console.log(result);
     result.modifiedCount === 1 ?
       res.status(200).json({ status: 200, message: "Question Inserted" }) :
       res.status(400).json({ status: 400, message: "There is a problem while inserting question" });
@@ -43,13 +45,13 @@ const addQuestion = async (req, res) => {
   finally {
     //Close client
     client.close();
-    console.log("disconnected!");
     //Close client
   }
 
 
 };
 
+//Get a question by Id
 const getQuestion = async (req, res) => {
   const { _id } = req.params;
   const query = { _id: ObjectId(_id) };

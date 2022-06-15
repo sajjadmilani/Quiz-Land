@@ -9,14 +9,13 @@ const options = {
   useUnifiedTopology: true,
 };
 
-
+//Calculate rank of all users after each score update
 const rankCalculator = async (resultId) => {
   const client = new MongoClient(MONGO_URI, options);
   try {
 
     //Connect client
     await client.connect();
-    console.log("connected!");
     const db = client.db(DB_NAME);
     //Connect client
     //------------------------------------------------------------------------------------------
@@ -45,7 +44,6 @@ const rankCalculator = async (resultId) => {
   finally {
     //Close client
     client.close();
-    console.log("disconnected!");
     //Close client
   }
 };

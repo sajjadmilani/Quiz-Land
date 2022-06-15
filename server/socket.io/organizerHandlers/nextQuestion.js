@@ -10,7 +10,7 @@ const options = {
   useUnifiedTopology: true,
 };
 
-
+//Next Question Handler
 const nextQuestion = async (req, socket) => {
   const client = new MongoClient(MONGO_URI, options);
 
@@ -18,7 +18,6 @@ const nextQuestion = async (req, socket) => {
 
     //Connect client
     await client.connect();
-    console.log("connected!");
     const db = client.db(DB_NAME);
     //Connect client
     //------------------------------------------------------------------------------------------
@@ -27,10 +26,12 @@ const nextQuestion = async (req, socket) => {
     const { joinCode } = req;
     let quizData = await db.collection("quizzes").findOne({ joinCode });
 
+    //If there isn't any new question
     if (quizData.currentQuestion === quizData.questions.length) {
       return;
     }
 
+    //Increase currentQuestion number in quizzes collection and return updated document
     const quizArray = await db.collection("quizzes").findOneAndUpdate(
       { joinCode },
       { $inc: { currentQuestion: 1 } },
@@ -38,9 +39,9 @@ const nextQuestion = async (req, socket) => {
     );
     quizData = quizArray.value;
 
-    console.log(quizData.currentQuestion);
     //-----------------------------------------------------------------------------
 
+    //Get the question by currentQuestion inside quizzes collection
     const questionData = await db.collection("questions").findOne(
       { _id: quizData.questions[quizData.currentQuestion - 1].questionId }
     );
@@ -67,11 +68,13 @@ const nextQuestion = async (req, socket) => {
         { returnOriginal: false }
       );
 
+      //Remove correct answers from question detail before sending to players
       questionData.answers.forEach(answer => {
         delete answer.isCorrect;
       });
-
+      //Remove organizerId from question detail before sending to players
       delete questionData.userId;
+
       //send new question to players
       socket.broadcast.to(joinCode).emit("newQuestion", {
         data: {
@@ -87,7 +90,6 @@ const nextQuestion = async (req, socket) => {
       //Expire question after inserted time
       questionTimer = setTimeout(async () => {
         await questionTimeOut(quizData, questionData);
-        // socket.broadcast.to(joinCode).emit("wait", { data: { ...questionData, questionNum: quizData.currentQuestion + 1 } });
       }, (questionData.time + 3) * 1000);
 
     }

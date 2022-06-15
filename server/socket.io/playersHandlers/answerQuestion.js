@@ -10,6 +10,7 @@ const options = {
   useUnifiedTopology: true,
 };
 
+//Answer question by player handler
 const answerQuestion = async (req, socket) => {
   const client = new MongoClient(MONGO_URI, options);
   try {
@@ -17,7 +18,6 @@ const answerQuestion = async (req, socket) => {
 
     //Connect client
     await client.connect();
-    console.log("connected!");
     const db = client.db(DB_NAME);
     //Connect client
     //------------------------------------------------------------------------------------------
@@ -34,17 +34,12 @@ const answerQuestion = async (req, socket) => {
 
     //Get current quiz result Data
     const resultData = await db.collection("results").findOne({ _id: quizData.currentResult });
-    console.log("socket", socket.id);
-    console.log("============================================");
-    console.log(resultData.players.find(player => player.socketId === socket.id));
     if (resultData.players.find(player => player.socketId === socket.id).answers[quizData.currentQuestion - 1].answer !== null) {
 
       socket.emit("fail", { message: "The Question answered before" });
       return;
     }
     answerIsCorrect = questionData.answers.some(answer => answer.isCorrect && answer.text === insertedAnswer);
-
-
 
 
     //Filter players who answered the current question correctly 
@@ -93,7 +88,6 @@ const answerQuestion = async (req, socket) => {
   finally {
     //Close client
     client.close();
-    console.log("disconnected!");
     //Close client
   }
 };
