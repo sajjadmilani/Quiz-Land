@@ -13,13 +13,13 @@ const Header = ({ number, time, questionNum }) => {
   const [seconds, setSeconds] = useState(initialSeconds);
   const [counter, setCounter] = useState(time);
 
+  //Update time after question changed
   useEffect(() => {
     const calcMinutes = Math.floor(time / 60);
     const calcSeconds = Math.floor(time % 60);
     setMinutes(calcMinutes);
     setSeconds(calcSeconds);
     setCounter(time);
-
   }, [questionNum]);
 
   useEffect(() => {
@@ -88,9 +88,7 @@ const HomeContainer = styled(Link)`
   cursor: pointer;
   
 `;
-const Website = styled.div`
-  padding:5px;
-`;
+
 const QuestionCount = styled.div`
   background-color :#312B4F;
   

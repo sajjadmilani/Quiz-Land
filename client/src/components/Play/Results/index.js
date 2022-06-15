@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { BsCheck2Circle, BsXCircle, BsAward, BsBullseye, BsPersonCircle } from 'react-icons/bs';
+
+
 const Result = ({ data }) => {
 
   return <Wrapper>
@@ -95,8 +97,8 @@ const Title = styled.div`
 const Value = styled.div`
 `;
 const Icon = styled.div`
-margin-right: -30px;
-opacity: 0.7;
+  margin-right: -30px;
+  opacity: 0.7;
 `;
 
 export default Result;

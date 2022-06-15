@@ -25,6 +25,7 @@ const initialAnswers = (type) => {
 };
 
 const AddQuestion = () => {
+
   const { id } = useParams();
   const [question, setQuestion] = useState("");
   const [type, setType] = useState("MultiChoice");
@@ -36,6 +37,7 @@ const AddQuestion = () => {
   const { user } = useAuth0();
   const navigate = useNavigate();
 
+  //Get a random question
   const randomHandler = () => {
     if (type === "") { return; }
     setStatus("loading");
@@ -48,6 +50,7 @@ const AddQuestion = () => {
       });
   };
 
+  //Change type of question
   const typeChangeHandler = (type) => {
     setType(type);
     setAnswers(initialAnswers(type));
@@ -73,7 +76,7 @@ const AddQuestion = () => {
       })
     })
       .then(res => res.json())
-      .then(data => navigate(`/panel/quiz/${id}/edit`));
+      .then(() => navigate(`/panel/quiz/${id}/edit`));
   };
   return <Organizer>
     <Wrapper>
@@ -270,8 +273,6 @@ font-size:16px;
 padding:10px;
 `;
 
-const Point = styled.select`
-`;
 
 const Buttons = styled.div`
   @media (max-width: 600px) {

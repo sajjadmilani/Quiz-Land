@@ -1,4 +1,4 @@
-import { useAuth0 } from '@auth0/auth0-react';
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -6,21 +6,24 @@ import Panel from '..';
 import Loading from '../../Loading';
 
 const Join = () => {
-  const { user } = useAuth0();
+
   const [code, setCode] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
   const [status, setStatus] = useState("idle");
+
   const navigate = useNavigate();
+
   const inputChange = (value) => {
     if (code.length < 6) {
       setCode(value);
     }
   };
+
   const startHandler = () => {
     if (code.length === 6) {
       navigate("/play/" + code);
     }
   };
+
   return <Panel>
     {status === "loading" && <Loading />}
     {status === "idle" && <>
