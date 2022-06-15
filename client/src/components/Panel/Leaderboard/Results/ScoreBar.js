@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   background-color: rgba(255,255,255,0.1);
   height: 30px;
   border-radius: 10px;
+  overflow: hidden;
   display: flex;
 `;
 
@@ -18,8 +19,6 @@ const Correct = styled.div`
 background-color: #2D9DA6;
 height: 100%;
 width: ${props => props.size}%;
-border-top-left-radius:10px;
-border-bottom-left-radius:10px;
 `;
 const Incorrect = styled.div`
 background-color: #D5546D;

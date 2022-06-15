@@ -43,7 +43,7 @@ const joinQuiz = async (req, socket) => {
           { $set: { "players.$.socketId": socket.id } }
         );
       }
-      console.log("test");
+
       socket.emit("nameRequest", { data: quizData });
     }
 

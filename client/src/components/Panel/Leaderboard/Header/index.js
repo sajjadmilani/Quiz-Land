@@ -24,9 +24,7 @@ const Header = ({ number, time, settingAlert, questionNum }) => {
   }, [questionNum]);
 
   useEffect(() => {
-    console.log(initialMinutes, initialSeconds);
     let myInterval = setInterval(() => {
-      console.log(seconds);
       if (time !== 0) {
         if (seconds > 0) {
           setSeconds(seconds - 1);

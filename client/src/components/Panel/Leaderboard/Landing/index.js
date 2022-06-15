@@ -10,7 +10,6 @@ const Landing = ({ data, participants, socketRef }) => {
   const [name, setName] = useState("");
   const quizLink = window.location.origin + `/play/${data.joinCode}`;
   const startHandler = () => {
-    console.log(data);
     socketRef.current.emit("startQuiz", {
       joinCode: data.joinCode
     });

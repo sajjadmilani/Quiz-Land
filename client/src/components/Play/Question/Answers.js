@@ -1,46 +1,42 @@
 import styled from 'styled-components';
 
-const Answers = ({ answersList, setAnswersList, type }) => {
+const Answers = ({ joinCode, answersList, type, socketRef }) => {
 
-  const clickHandler = (index) => {
-    // const newAnswersList = [...answersList];
-    // newAnswersList[index] = { ...newAnswersList[index], text: value };
-    // setAnswersList(newAnswersList);
-  };
-
-  const selectHandler = (position) => {
-
-    const newAnswersList = [...answersList];
-    newAnswersList.forEach((answer, index) => {
-      const isCorrect = index === position ? true : false;
-      newAnswersList[index] = { ...newAnswersList[index], isCorrect };
+  const clickHandler = (value) => {
+    alert(value);
+    console.log(socketRef);
+    socketRef.current.emit("answerQuestion", {
+      joinCode: joinCode,
+      insertedAnswer: value
     });
-    setAnswersList(newAnswersList);
+
   };
 
   return <Wrapper>
     {answersList?.map((answer, index) => {
       return <AnswerContainer>
-        <Answer value={answer.text} onClick={() => clickHandler(index)}
+        <Answer value={answer.text} onClick={() => clickHandler(answer.text)}
           placeholder="Type an answer option here" disabled={type === "TrueFalse"}>{answer.text}</Answer>
       </AnswerContainer >;
     })}
   </Wrapper >;
 };
+
 const Wrapper = styled.div`
-text-align: center;
-width: 100%;
-display: grid;
-height: 50%;
-gap:5px;
-margin-top:10px;
-grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-@media (max-width: 1000px) {
-  height: fit-content;
-  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-    width: 100%
-}
+  text-align: center;
+  width: 100%;
+  display: grid;
+  height: 50%;
+  gap:5px;
+  margin-top:10px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  @media (max-width: 1000px) {
+    height: fit-content;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      width: 100%
+  }
 `;
+
 const AnswerContainer = styled.div`
   height:50%;
   border-radius:10px;
