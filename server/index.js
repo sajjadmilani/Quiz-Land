@@ -4,7 +4,7 @@ const express = require('express');
 const morgan = require('morgan');
 const socketio = require('socket.io');
 const { socketConnection } = require('./socket.io');
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 const app = express();
 
 
