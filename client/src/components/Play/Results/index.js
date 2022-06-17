@@ -46,7 +46,7 @@ const Result = ({ data }) => {
 
 const Wrapper = styled.div`
   background-color:#312B4F;
-  width:500px;
+  max-width: 500px;
   margin-top:40px;
   padding:30px 40px;
   box-sizing: border-box;

@@ -17,7 +17,7 @@ const Landing = ({ data, socketRef }) => {
 };
 const Wrapper = styled.div`
   background-color:#312B4F;
-  width:450px;
+  max-width: 450px;
 
   padding:30px 40px;
   box-sizing: border-box;
