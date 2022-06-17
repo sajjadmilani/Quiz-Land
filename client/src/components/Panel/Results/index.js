@@ -15,9 +15,10 @@ const Results = () => {
   const [status, setStatus] = useState("idle");
 
   const { setPageName } = useContext(PageContext);
-  setPageName("Quizzes Results");
+
 
   useEffect(() => {
+    setPageName("Quizzes Results");
     setStatus("loading");
     if (user) {
       fetch(`/api/results/${user.sub}`)

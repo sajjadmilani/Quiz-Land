@@ -8,12 +8,14 @@ import { PageContext } from '../../Contexts/PageContext';
 import Loading from '../../Loading';
 
 const Quizzes = () => {
+  const { setPageName } = useContext(PageContext);
   const { user } = useAuth0();
   const [quizzes, setQuizzes] = useState([]);
   const [status, setStatus] = useState("idle");
-  const { setPageName } = useContext(PageContext);
-  setPageName("Quizzes List");
+
+
   useEffect(() => {
+    setPageName("Quizzes List");
     setStatus("loading");
     if (user) {
       fetch(`/api/quizzes/${user.sub}`)

@@ -1,5 +1,5 @@
 
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Panel from '..';
@@ -9,7 +9,11 @@ const Join = () => {
 
   const [code, setCode] = useState("");
   const { setPageName } = useContext(PageContext);
-  setPageName("Join to quiz");
+
+  useEffect(() => {
+    setPageName("Join to quiz");
+  }, []);
+
 
   const navigate = useNavigate();
 

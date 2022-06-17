@@ -8,17 +8,19 @@ import { useNavigate } from 'react-router-dom';
 import { PageContext } from '../../Contexts/PageContext';
 
 const AddQuiz = () => {
+
+  const { setPageName } = useContext(PageContext);
   const { user } = useAuth0();
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [status, setStatus] = useState("idle");
 
-  const { setPageName } = useContext(PageContext);
-  setPageName("Add Quiz");
+
   const navigate = useNavigate();
 
   useEffect(() => {
+    setPageName("Add Quiz");
     setStatus("loading");
     fetch(`/api/getCategories`)
       .then(res => res.json())

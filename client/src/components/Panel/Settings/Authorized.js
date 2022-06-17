@@ -25,7 +25,6 @@ const Authorized = () => {
         .then(res => res.json())
         .then(data => {
           if (data.status === 200) {
-            console.log(window.location.origin);
             if (redirect) {
               localStorage.removeItem("redirectURL");
               navigate(redirect);

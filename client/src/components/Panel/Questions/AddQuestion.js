@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Answers from './Answers';
 import Tippy from '@tippyjs/react';
@@ -26,7 +26,7 @@ const initialAnswers = (type) => {
 };
 
 const AddQuestion = () => {
-
+  const { setPageName } = useContext(PageContext);
   const { id } = useParams();
   const [question, setQuestion] = useState("");
   const [type, setType] = useState("MultiChoice");
@@ -38,8 +38,9 @@ const AddQuestion = () => {
   const { user } = useAuth0();
   const navigate = useNavigate();
 
-  const { setPageName } = useContext(PageContext);
-  setPageName("Add a Question");
+  useEffect(() => {
+    setPageName("Join to quiz");
+  }, []);
 
   //Get a random question
   const randomHandler = () => {

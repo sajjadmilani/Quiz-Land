@@ -14,9 +14,10 @@ const Settings = () => {
   const [email, setEmail] = useState();
 
   const { setPageName } = useContext(PageContext);
-  setPageName("Profile Settings");
+
 
   useEffect(() => {
+    setPageName("Profile Settings");
     setStatus("loading");
     if (user) {
       fetch(`/api/user/${user.sub}`)

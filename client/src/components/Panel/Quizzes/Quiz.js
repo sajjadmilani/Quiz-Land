@@ -9,13 +9,15 @@ import Loading from '../../Loading';
 import QuestionItem from './QuesionItem';
 
 const Quiz = () => {
+  const { setPageName } = useContext(PageContext);
   const [quiz, setQuiz] = useState({});
   const [status, setStatus] = useState("idle");
   const { id } = useParams();
-  const { setPageName } = useContext(PageContext);
-  setPageName("Quiz Detail");
+
   const navigate = useNavigate();
+
   useEffect(() => {
+    setPageName("Quiz Detail");
     setStatus("loading");
     fetch(`/api/quiz/${id}`)
       .then(res => res.json())
