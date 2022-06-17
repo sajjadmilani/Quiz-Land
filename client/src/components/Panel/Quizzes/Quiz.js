@@ -1,9 +1,10 @@
 
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import 'tippy.js/dist/tippy.css';
 import Organizer from '..';
+import { PageContext } from '../../Contexts/PageContext';
 import Loading from '../../Loading';
 import QuestionItem from './QuesionItem';
 
@@ -11,12 +12,15 @@ const Quiz = () => {
   const [quiz, setQuiz] = useState({});
   const [status, setStatus] = useState("idle");
   const { id } = useParams();
+  const { setPageName } = useContext(PageContext);
+  setPageName("Quiz Detail");
   const navigate = useNavigate();
   useEffect(() => {
     setStatus("loading");
     fetch(`/api/quiz/${id}`)
       .then(res => res.json())
       .then(data => {
+
         setQuiz(data.data);
         setStatus("idle");
       });

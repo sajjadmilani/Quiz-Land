@@ -1,12 +1,15 @@
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Panel from '..';
+import { PageContext } from '../../Contexts/PageContext';
 
 const Join = () => {
 
   const [code, setCode] = useState("");
+  const { setPageName } = useContext(PageContext);
+  setPageName("Join to quiz");
 
   const navigate = useNavigate();
 

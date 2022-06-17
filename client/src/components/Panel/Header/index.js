@@ -1,9 +1,13 @@
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { PageContext } from '../../Contexts/PageContext';
 
 const Header = () => {
   const navigate = useNavigate();
+  const { pageName } = useContext(PageContext);
   return <Wrapper>
+    <PageName>{pageName}</PageName>
     <JoinCode onClick={() => navigate("/panel/quiz/join")}>Enter Code</JoinCode>
   </Wrapper>;
 };
@@ -16,9 +20,11 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   color:white;
-  justify-content: flex-end;
+  justify-content:space-between;
 `;
-
+const PageName = styled.div`
+  font-size: 18px;
+`;
 const JoinCode = styled.button`
   background-color: rgba(255,255,255,0.5);
   padding: 10px;

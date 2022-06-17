@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import Answers from './Answers';
 import Tippy from '@tippyjs/react';
@@ -8,6 +8,7 @@ import Organizer from '..';
 import Button from '../Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
+import { PageContext } from '../../Contexts/PageContext';
 
 const initialAnswers = (type) => {
   switch (type) {
@@ -36,6 +37,9 @@ const AddQuestion = () => {
   const [difficulty, setDifficulty] = useState("easy");
   const { user } = useAuth0();
   const navigate = useNavigate();
+
+  const { setPageName } = useContext(PageContext);
+  setPageName("Add a Question");
 
   //Get a random question
   const randomHandler = () => {

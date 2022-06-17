@@ -15,7 +15,7 @@ const LeftBar = () => {
     </Container>
     <Nav>
       <NavItem to="/panel/quizzes">Quizzes</NavItem>
-      <NavItem to="/panel/results">Reports</NavItem>
+      <NavItem to="/panel/results">Results</NavItem>
       <NavItem to="/panel/settings">Settings</NavItem>
       <LogOut onClick={() => logout()}>Log out</LogOut>
     </Nav>

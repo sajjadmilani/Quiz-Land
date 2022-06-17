@@ -8,6 +8,10 @@ const Authorized = () => {
   const { user } = useAuth0();
   const [status, setStatus] = useState("idle");
   const navigate = useNavigate();
+
+
+  const redirect = localStorage.getItem("redirectURL");
+
   useEffect(() => {
     if (user) {
       setStatus("loading");
@@ -21,7 +25,12 @@ const Authorized = () => {
         .then(res => res.json())
         .then(data => {
           if (data.status === 200) {
-            navigate("/panel/settings");
+            console.log(window.location.origin);
+            if (redirect) {
+              localStorage.removeItem("redirectURL");
+              navigate(redirect);
+            } else
+              navigate("/panel/quizzes");
           }
         });
       setStatus("idle");

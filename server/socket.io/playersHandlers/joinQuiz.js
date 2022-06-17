@@ -63,7 +63,7 @@ const joinQuiz = async (req, socket) => {
     }
 
     else {
-      socket.emit("fail", { message: "fail" });
+      socket.emit("NotFound", { message: "NotFound" });
     }
   }
   catch (error) {

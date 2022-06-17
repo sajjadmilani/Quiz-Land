@@ -1,9 +1,10 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 import 'tippy.js/dist/tippy.css';
 import Organizer from '..';
+import { PageContext } from '../../Contexts/PageContext';
 import Loading from '../../Loading';
 import ResultItem from './ResultItem';
 
@@ -12,6 +13,9 @@ const Results = () => {
   const { user } = useAuth0();
   const [results, setResults] = useState({});
   const [status, setStatus] = useState("idle");
+
+  const { setPageName } = useContext(PageContext);
+  setPageName("Quizzes Results");
 
   useEffect(() => {
     setStatus("loading");

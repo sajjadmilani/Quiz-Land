@@ -1,10 +1,11 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import 'tippy.js/dist/tippy.css';
 import Panel from '..';
 import Loading from '../../Loading';
 import { useNavigate } from 'react-router-dom';
+import { PageContext } from '../../Contexts/PageContext';
 
 const AddQuiz = () => {
   const { user } = useAuth0();
@@ -13,6 +14,8 @@ const AddQuiz = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [status, setStatus] = useState("idle");
 
+  const { setPageName } = useContext(PageContext);
+  setPageName("Add Quiz");
   const navigate = useNavigate();
 
   useEffect(() => {

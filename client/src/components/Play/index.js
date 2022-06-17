@@ -19,8 +19,13 @@ const Play = () => {
   const [alert, setAlert] = useState();
   const [action, setAction] = useState("");
   const { joinCode } = useParams();
-  const { user } = useAuth0();
+  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
   const [questionNum, setQuestionNum] = useState(0);
+
+  if (!isLoading && !isAuthenticated) {
+    localStorage.setItem("redirectURL", "/play/" + joinCode);
+    loginWithRedirect();
+  }
 
   useEffect(() => {
     setStatus("loading");
@@ -78,6 +83,10 @@ const Play = () => {
         setStatus("idle");
       });
 
+      socketRef.current.on("NotFound", (res) => {
+        setAction("NotFound");
+        setStatus("idle");
+      });
     }
 
   }, [user]);  // eslint-disable-line react-hooks/exhaustive-deps
@@ -89,7 +98,6 @@ const Play = () => {
   return <Wrapper>
     {status === "loading" && <Loading />}
     {alert && action !== "result" && <AlertContainer><Alert backgroundColor={alert.backgroundColor}>{alert.text}</Alert></AlertContainer>}
-    {status === "fail" && <LoadingMessage>Oops! The Quiz not found...</LoadingMessage>}
     {status === "idle" && <>
       <Header time={data && data.time} number={data?.questionCounter} settingAlert={settingAlert} questionNum={questionNum} />
 
@@ -102,6 +110,8 @@ const Play = () => {
             return <Question questionData={data} socketRef={socketRef} joinCode={joinCode} />;
           case "result":
             return <Results data={data} />;
+          case "NotFound":
+            return <LoadingMessage>Oops! The Quiz not found...</LoadingMessage>;
           default:
             break;
         }
