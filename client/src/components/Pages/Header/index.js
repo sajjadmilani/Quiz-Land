@@ -11,7 +11,7 @@ const Header = () => {
       {!isAuthenticated ?
         <Button onClick={() => loginWithRedirect()}>Sign In / Sing Up</Button> : <div>
           <StyledLink to="/panel/quizzes">Control Panel</StyledLink>
-          <Button onClick={() => logout()}>Sign Out</Button>
+          <Button onClick={() => logout({ returnTo: window.location.origin })}>Sign Out</Button>
         </div>
       }
     </Container>

@@ -17,9 +17,9 @@ const LeftBar = () => {
       <NavItem to="/panel/quizzes">Quizzes</NavItem>
       <NavItem to="/panel/results">Results</NavItem>
       <NavItem to="/panel/settings">Settings</NavItem>
-      <LogOut onClick={() => logout()}>Log out</LogOut>
+      <LogOut onClick={() => logout({ returnTo: window.location.origin })} >Log out</LogOut>
     </Nav>
-  </Wrapper>;
+  </Wrapper >;
 };
 
 const Wrapper = styled.div`
