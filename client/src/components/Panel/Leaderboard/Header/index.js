@@ -20,7 +20,7 @@ const Header = ({ number, time, questionNum }) => {
     setMinutes(calcMinutes);
     setSeconds(calcSeconds);
     setCounter(time);
-  }, [questionNum]);
+  }, [questionNum]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     let myInterval = setInterval(() => {
@@ -42,7 +42,7 @@ const Header = ({ number, time, questionNum }) => {
     return () => {
       clearInterval(myInterval);
     };
-  }, [counter]);
+  }, [counter]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   return <Wrapper>
 

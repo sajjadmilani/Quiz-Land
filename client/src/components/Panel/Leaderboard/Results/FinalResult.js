@@ -48,7 +48,7 @@ const FinalResult = ({ winnerName }) => {
     return () => {
       clearInterval(intervalId);
     };
-  }, [intervalId]);
+  }, [intervalId]); // eslint-disable-line react-hooks/exhaustive-deps
   return <>
     <Wrapper>
 

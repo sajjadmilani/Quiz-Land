@@ -2,6 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Organizer from '..';
+import Loading from '../../Loading';
 
 const Authorized = () => {
   const { user } = useAuth0();
@@ -25,8 +26,14 @@ const Authorized = () => {
         });
       setStatus("idle");
     }
-  }, [user]);
+  }, [user]);  // eslint-disable-line react-hooks/exhaustive-deps
 
-  return <Organizer></Organizer>;
+  if (status === "idle") {
+    return <Organizer></Organizer>;
+  }
+  else {
+    return <Loading />;
+  }
+
 };
 export default Authorized;

@@ -13,7 +13,7 @@ const QuestionItem = ({ id }) => {
         setQuestion(data.data);
         setStatus("idle");
       });
-  }, []);
+  }, []);  // eslint-disable-line react-hooks/exhaustive-deps
   return <Wrapper>
 
     <Header>
@@ -23,12 +23,12 @@ const QuestionItem = ({ id }) => {
       </PageTitle>
     </Header>
 
-    <Container><Answers>
+    {status === "idle" && <Container><Answers>
       {question.answers && question.answers.map((answer) => {
         return <AnswerContainer><CorrectAnswer correct={answer.isCorrect} /><Answer>{answer.text}</Answer></AnswerContainer>;
       })}
     </Answers>
-    </Container>
+    </Container>}
 
     <Footer>
 

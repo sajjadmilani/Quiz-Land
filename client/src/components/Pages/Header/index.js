@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const Header = () => {
 
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
   return <Wrapper>
     <Container>
       <Logo>[ Quiz Land ]</Logo>

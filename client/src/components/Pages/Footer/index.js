@@ -31,16 +31,6 @@ const Container = styled.div`
   align-items: center;
   `;
 
-const Button = styled.button`
-  background-color: rgba(255,255,255,0.5);
-  padding: 10px;
-  color:#4157B2;
-  font-size: 16px;
-  font-weight:bold;
-  border: none;
-  cursor: pointer;
-`;
-
 const Logo = styled.div`
   font-size: 22px;
 

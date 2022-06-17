@@ -20,7 +20,7 @@ const Quiz = () => {
         setQuiz(data.data);
         setStatus("idle");
       });
-  }, []);
+  }, []);  // eslint-disable-line react-hooks/exhaustive-deps
 
 
   return <>
@@ -112,38 +112,6 @@ const JoinCode = styled.span`
   font-size:19px;
   margin-left:10px;
   cursor: pointer;
-`;
-const Title = styled.h2`
-margin-top:20px;
-margin-bottom:10px;
-font-size: 22px;
-`;
-
-const Name = styled.input`
-padding:12px;
-box-sizing: border-box;
-font-size:18px;
-width: 100%;
-`;
-
-const Catogories = styled.div`
-  display: flex;
-  flex-wrap:wrap;
-  gap:10px;
-`;
-
-const Category = styled.button`
-  background-color:${props => props.selected ? "#2d9da6" : "#f2f2f2"};
-  color:${props => props.selected ? "#ffffff" : "#000000"};
-  border:none;
-  font-size: 18px;
-  padding:10px;
-  border-radius: 5px;;
-  &:hover{
-    background-color:  #2d9da6;
-    color: #FFFFFF;
-    cursor: pointer;
-  }
 `;
 
 const Container = styled.div`

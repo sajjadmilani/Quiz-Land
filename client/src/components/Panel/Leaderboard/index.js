@@ -54,7 +54,7 @@ const Leaderboard = () => {
     socketRef.current.on("fail", (res) => {
       setStatus("fail");
     });
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 
   return <Wrapper>
@@ -63,7 +63,7 @@ const Leaderboard = () => {
     {status === "fail" && <LoadingMessage>Oops! The Quiz not found...</LoadingMessage>}
     {status === "idle" && <>
 
-      <Header time={data?.time} number={data?.questionCounter || 0} questionNum={data?.questionNum} />
+      <Header time={data?.time} number={data?.questionCounter || 0} questionNum={data?.questionNum} setAlert={setAlert} />
 
       {(() => {
 
@@ -80,8 +80,10 @@ const Leaderboard = () => {
             if (data && data.players) {
               return <Results data={data} socketRef={socketRef} />;
             }
+            break;
           }
-
+          default:
+            break;
 
         }
       })()}

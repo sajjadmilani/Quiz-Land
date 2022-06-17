@@ -3,12 +3,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Panel from '..';
-import Loading from '../../Loading';
 
 const Join = () => {
 
   const [code, setCode] = useState("");
-  const [status, setStatus] = useState("idle");
 
   const navigate = useNavigate();
 
@@ -25,24 +23,23 @@ const Join = () => {
   };
 
   return <Panel>
-    {status === "loading" && <Loading />}
-    {status === "idle" && <>
-      <Wrapper>
-        <Header>
-          <PageTitle>Join the quiz</PageTitle>
-        </Header>
 
-        <Container>
-          <JoinCode maxlength="6" type="text" value={code} placeholder="Join Code..." onChange={(ev) => inputChange(ev.target.value)} />
+    <Wrapper>
+      <Header>
+        <PageTitle>Join the quiz</PageTitle>
+      </Header>
 
-        </Container>
+      <Container>
+        <JoinCode maxlength="6" type="text" value={code} placeholder="Join Code..." onChange={(ev) => inputChange(ev.target.value)} />
 
-        <Footer>
-          <Buttons>
-            <Start onClick={startHandler}>Start</Start>
-          </Buttons>
-        </Footer>
-      </Wrapper></>}
+      </Container>
+
+      <Footer>
+        <Buttons>
+          <Start onClick={startHandler}>Start</Start>
+        </Buttons>
+      </Footer>
+    </Wrapper>
   </Panel>;
 };
 
