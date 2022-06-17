@@ -34,7 +34,7 @@ const Quiz = () => {
         <Wrapper>
           <QuizContainer>
             <Header>
-              <QuizLink>http://localhost:3000/join/{quiz.joinCode}</QuizLink>
+              <QuizLink>{`/${window.location.origin}/join/${quiz.joinCode}`}</QuizLink>
               <PageTitle>
                 <p>{quiz.name}</p>
                 <JoinCode>{quiz.joinCode}</JoinCode>
