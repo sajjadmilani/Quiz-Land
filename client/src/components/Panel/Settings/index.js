@@ -9,8 +9,9 @@ const Settings = () => {
   const { user } = useAuth0();
   const [profile, setProfile] = useState({});
   const [status, setStatus] = useState("idle");
-
-
+  const [name, setName] = useState();
+  const [lastName, setLastName] = useState();
+  const [email, setEmail] = useState();
   useEffect(() => {
     setStatus("loading");
     if (user) {
@@ -18,6 +19,9 @@ const Settings = () => {
         .then(res => res.json())
         .then(data => {
           setProfile(data.data);
+          setName(data.data.given_name);
+          setLastName(data.data.family_name);
+          setEmail(data.data.email);
           setStatus("idle");
         });
     }
@@ -36,17 +40,17 @@ const Settings = () => {
         <Container>
           <InputGroup>
             <Label>Name:</Label>
-            <Input value={profile.given_name} />
+            <Input value={name} onChange={(ev) => { setName(ev.target.value); }} />
           </InputGroup>
 
           <InputGroup>
             <Label>LastName:</Label>
-            <Input value={profile.family_name} />
+            <Input value={lastName} onChange={(ev) => { setLastName(ev.target.value); }} />
           </InputGroup>
 
           <InputGroup>
             <Label>Email:</Label>
-            <Input value={profile.email} />
+            <Input value={email} onChange={(ev) => { setEmail(ev.target.value); }} />
           </InputGroup>
         </Container>
 

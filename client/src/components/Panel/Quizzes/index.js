@@ -21,7 +21,7 @@ const Quizzes = () => {
           setStatus("idle");
         });
     }
-  }, [user]);
+  }, [user]);   // eslint-disable-line react-hooks/exhaustive-deps
 
 
   const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };

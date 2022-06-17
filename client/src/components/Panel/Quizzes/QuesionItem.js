@@ -24,8 +24,8 @@ const QuestionItem = ({ id }) => {
     </Header>
 
     {status === "idle" && <Container><Answers>
-      {question.answers && question.answers.map((answer) => {
-        return <AnswerContainer><CorrectAnswer correct={answer.isCorrect} /><Answer>{answer.text}</Answer></AnswerContainer>;
+      {question.answers && question.answers.map((answer, index) => {
+        return <AnswerContainer key={index}><CorrectAnswer correct={answer.isCorrect} /><Answer>{answer.text}</Answer></AnswerContainer>;
       })}
     </Answers>
     </Container>}

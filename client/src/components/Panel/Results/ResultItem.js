@@ -13,28 +13,29 @@ const ResultItem = ({ result }) => {
     </Header>
 
     <Container>
-      <Detail>
-        <Name>Name:</Name>
-        <Name>Rank:</Name>
-        <Name>Points</Name>
-        <Name>Correct Answers:</Name>
-        <Name>Incorrect Answers:</Name>
-      </Detail>
-      {result.players.map((player) => {
-        const correctCount = player.answers?.filter((answer) => answer.isCorrect === true).length;
-        const incorrectCount = player.answers?.filter((answer) => answer.isCorrect === false && answer.answer !== null).length;
-        return <>
-          <Detail>
+      <thead>
+        <Detail>
+          <Name>Name:</Name>
+          <Name>Rank:</Name>
+          <Name>Points</Name>
+          <Name>Correct Answers:</Name>
+          <Name>Incorrect Answers:</Name>
+        </Detail>
+      </thead>
+      <tbody>
+        {result.players.map((player) => {
+          const correctCount = player.answers?.filter((answer) => answer.isCorrect === true).length;
+          const incorrectCount = player.answers?.filter((answer) => answer.isCorrect === false && answer.answer !== null).length;
+          return <Detail key={player.userId}>
             <Value>{player.name}</Value>
             <Value>{player.rank}</Value>
             <Value>{player.points}</Value>
             <Value>{correctCount}</Value>
             <Value>{incorrectCount}</Value>
-          </Detail>
-
-        </>;
-      }
-      )}
+          </Detail>;
+        }
+        )}
+      </tbody>
     </Container>
 
     <Footer>
