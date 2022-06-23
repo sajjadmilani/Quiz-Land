@@ -9,7 +9,7 @@ You can find the live version here:
 
 
 ## ⚙ Third-party APIs
-
+These APIs are used to get random questions.
 - [The Trivia API](https://the-trivia-api.com/)
 - [Open Trivia DB](https://opentdb.com/)
 
