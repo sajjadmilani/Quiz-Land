@@ -67,7 +67,7 @@ The main aim of the platform is to facilitate learning / teaching process to imp
 ![Question-result](https://user-images.githubusercontent.com/92240385/175219403-1887bdf2-7ad0-4367-a271-a90e4f8c2c31.jpg)
 
 
-4.	**Seeing the final summary result**
+4.	**The summary of the final result**
 >
 ![partiipant final result](https://user-images.githubusercontent.com/92240385/175219471-47d1a736-4750-4574-9670-7b76818c3f70.jpg)
 
