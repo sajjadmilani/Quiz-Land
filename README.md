@@ -1,5 +1,8 @@
 # Sajjad Milani - Final Project (Quiz Land)
 
+![homepage](https://user-images.githubusercontent.com/92240385/175208189-e32ea953-0567-4447-8b68-ea5314cc675d.jpg)
+
+
 Quiz land is a real-time quiz platform which was originally developed as a final project for full-stack web development course run by the Concordia Bootcamps.
 The main aim of the platform is to facilitate learning / teaching process to improve not only educational knowledge but also general information.
 
@@ -26,6 +29,4 @@ These APIs are used to get random questions.
 
 **Organizer:** The  individual who runs or creates the quiz.
 
-![create-quiz](https://user-images.githubusercontent.com/92240385/175207806-a72f04ab-2f01-445b-ab81-7676197533ac.jpg)
-
-![quizzes-lisst](https://user-images.githubusercontent.com/92240385/175207961-e6748c7c-a43c-48db-a9d2-abdd5877bf30.jpg)
+![create-quiz](https://user-images.githubusercontent.com/92240385/175208177-e4c975c7-47d3-4504-9836-9c1493b7593f.jpg)
