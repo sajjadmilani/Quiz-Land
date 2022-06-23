@@ -25,9 +25,9 @@ The main aim of the platform is to facilitate learning / teaching process to imp
 **Database:** ```MongoDB```
 
 
-## ⚡️ Functionality & Features
+## ⚡️ Organizer & Features
 
-**Organizer:** The  individual who runs or creates the quiz.
+> The individual who runs or creates the quiz.
 
 1. Organizers can choose a title for their quiz and then  selecting the category they favor
 
