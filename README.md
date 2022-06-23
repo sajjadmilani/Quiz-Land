@@ -28,5 +28,5 @@ You can found the live version here:
 
 **Organizer:** The  individual who runs or creates the quiz.
 
-What did you learn while building this project? What challenges did you face and how did you overcome them?
+
 
