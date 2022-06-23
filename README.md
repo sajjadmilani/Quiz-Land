@@ -11,22 +11,24 @@ The main aim of the platform is to facilitate learning / teaching process to imp
 
 
 ## ⚙ Third-party APIs
-These APIs are used to get random questions.
+> These APIs are used to get random questions.
 - [The Trivia API](https://the-trivia-api.com/)
 - [Open Trivia DB](https://opentdb.com/)
 
 
-## 🛠 Technologies
+## 🛠 Tech Stack
 
-**Client:** React, Auth0, Styled-Components
+**Client:** ```React```, ```Auth0```, ```Styled-Components```
 
-**Server:** Node.js, Socket.io, Express.js
+**Server:** ```Node.js```, ```Socket.io```, ```Express.js```
 
-**Database:** MongoDB
+**Database:** ```MongoDB```
 
 
 ## ⚡️ Functionality & Features
 
 **Organizer:** The  individual who runs or creates the quiz.
+
 1-Organizers can choose a title for their quiz and then  selecting the category they favor
+
 ![create-quiz](https://user-images.githubusercontent.com/92240385/175208177-e4c975c7-47d3-4504-9836-9c1493b7593f.jpg)
