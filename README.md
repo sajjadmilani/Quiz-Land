@@ -25,7 +25,7 @@ These APIs are used to get random questions.
 **Database:** MongoDB
 
 
-## 🖥️ Functionality & Features
+## ⚡️ Functionality & Features
 
 **Organizer:** The  individual who runs or creates the quiz.
 1-Organizers can choose a title for their quiz and then  selecting the category they favor
