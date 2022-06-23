@@ -40,4 +40,15 @@ The main aim of the platform is to facilitate learning / teaching process to imp
 > 
 ![add-question](https://user-images.githubusercontent.com/92240385/175212396-fc1a9359-2813-4684-a081-547040778f4b.jpg)
 
+2. **Run the quiz**
+> After all the questions are added to the quiz, the organizer can “run” the quiz then has to wait for the participant(s) to join in order to “start” the quiz.
+
+![wait-for-join](https://user-images.githubusercontent.com/92240385/175214854-49c66e43-0492-483f-b60f-4c5348a6e712.jpg)
+
+![wait-for-join](https://user-images.githubusercontent.com/92240385/175215429-c649da97-5a37-4ade-b4ba-38e64780eea2.jpg)
+
+
+
+
+
 
