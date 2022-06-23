@@ -13,7 +13,7 @@ These APIs are used to get random questions.
 - [Open Trivia DB](https://opentdb.com/)
 
 
-## Technologies
+## 🛠 Technologies
 
 **Client:** React, Auth0, Styled-Components
 
@@ -22,7 +22,7 @@ These APIs are used to get random questions.
 **Database:** MongoDB
 
 
-## Functionality & Features
+## 🖥️ Functionality & Features
 
 **Organizer:** The  individual who runs or creates the quiz.
 
