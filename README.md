@@ -39,7 +39,7 @@ The main aim of the platform is to facilitate learning / teaching process to imp
 ![add-question](https://user-images.githubusercontent.com/92240385/175216132-35341b38-adc7-4dc2-8090-86cfe9846649.jpg)
 
 2. **Start the quiz**
-> After all the questions are added to the quiz, the organizer can “Run” the quiz then has to wait for the participant(s) to join in order to “Start” the quiz.
+> After all the questions are added to the quiz, the organizer can ```Run``` the quiz then has to wait for the participant(s) to join in order to ```Start``` the quiz.
 
 ![wait-for-join](https://user-images.githubusercontent.com/92240385/175215429-c649da97-5a37-4ade-b4ba-38e64780eea2.jpg)
 
@@ -50,7 +50,7 @@ The main aim of the platform is to facilitate learning / teaching process to imp
 ![ledearboard](https://user-images.githubusercontent.com/92240385/175217696-edcacd14-027d-46b2-ba78-126a5592b02b.jpg)
 
 4.  **Final result**
-> Right after organizer’s click on the “End Quiz” , the winner’s name will appear in the middle of the page adorned with colorful confetti.
+> Right after organizer’s click on the ```End Quiz``` , the winner’s name will appear in the middle of the page adorned with colorful confetti.
 
 ## ⚡️	Participants Features
 1.	**Choosing name**
