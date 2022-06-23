@@ -1,9 +1,9 @@
 # Sajjad Milani - Final Project (Quiz Land)
 
-![homepage](https://user-images.githubusercontent.com/92240385/175208189-e32ea953-0567-4447-8b68-ea5314cc675d.jpg)
+![homepage](https://user-images.githubusercontent.com/92240385/175210525-dcd04122-0684-49e6-a8f6-074b77e66f31.jpg)
 
 
-Quiz land is a real-time quiz platform which was originally developed as a final project for full-stack web development course run by the Concordia Bootcamps.
+>Quiz land is a real-time quiz platform which was originally developed as a final project for full-stack web development course run by the Concordia Bootcamps.
 The main aim of the platform is to facilitate learning / teaching process to improve not only educational knowledge but also general information.
 
 ✅ You can find the live version here: 
@@ -25,14 +25,19 @@ The main aim of the platform is to facilitate learning / teaching process to imp
 **Database:** ```MongoDB```
 
 
-## ⚡️ Organizer & Features
+## ⚡️ Organizer Features (The individual who runs or creates the quiz)
 
-> The individual who runs or creates the quiz.
 
-1. **Create a quiz:** 
-    > Organizers can choose a title for their quiz and then  selecting the category they favor.
 
-![create-quiz](https://user-images.githubusercontent.com/92240385/175208177-e4c975c7-47d3-4504-9836-9c1493b7593f.jpg)
+1. **Create a quiz** 
+> Organizers can choose a title for their quiz and then  selecting the category they favor.
 
-2. **Add a question to quiz:**
-> The user is able to choose questions provided by the database of the platform or even  add their own questions to the quiz as well as defining such features as time limits, difficulty level and the plan to calculate the  points specified for each question
+![create-quiz](https://user-images.githubusercontent.com/92240385/175212457-e7071e1e-3296-4f41-88fd-cbaa4cea9214.jpg)
+
+
+2. **Add a question to quiz**
+> The user is able to choose random questions provided by the APIs or even add their own questions to the quiz as well as defining such features as time limits, difficulty level and the plan to calculate the points specified for each question.
+> 
+![add-question](https://user-images.githubusercontent.com/92240385/175212396-fc1a9359-2813-4684-a081-547040778f4b.jpg)
+
+
