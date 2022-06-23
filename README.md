@@ -28,4 +28,4 @@ These APIs are used to get random questions.
 
 ![create-quiz](https://user-images.githubusercontent.com/92240385/175207806-a72f04ab-2f01-445b-ab81-7676197533ac.jpg)
 
-![create-quiz](https://user-images.githubusercontent.com/92240385/175207902-4b30be90-2a11-4556-883c-dfcbcbe5068e.jpg)
+![quizzes-lisst](https://user-images.githubusercontent.com/92240385/175207961-e6748c7c-a43c-48db-a9d2-abdd5877bf30.jpg)
