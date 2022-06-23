@@ -3,7 +3,7 @@
 Quiz land is a real-time quiz platform which was originally developed as a final project for full-stack web development course run by the Concordia Bootcamps.
 The main aim of the platform is to facilitate learning / teaching process to improve not only educational knowledge but also general information.
 
-You can find the live version here: 
+✅ You can find the live version here: 
 [Live version](https://quizland-demo.herokuapp.com/)
 
 
@@ -13,7 +13,7 @@ These APIs are used to get random questions.
 - [Open Trivia DB](https://opentdb.com/)
 
 
-## 🛠 Tech Stack
+## Technologies
 
 **Client:** React, Auth0, Styled-Components
 
@@ -22,7 +22,7 @@ These APIs are used to get random questions.
 **Database:** MongoDB
 
 
-## 🖥️ Functionality & Features
+## Functionality & Features
 
 **Organizer:** The  individual who runs or creates the quiz.
 
