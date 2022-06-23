@@ -29,8 +29,10 @@ The main aim of the platform is to facilitate learning / teaching process to imp
 
 > The individual who runs or creates the quiz.
 
-1. **Create a quiz: ** Organizers can choose a title for their quiz and then  selecting the category they favor.
+1. **Create a quiz:** 
+    > Organizers can choose a title for their quiz and then  selecting the category they favor.
 
 ![create-quiz](https://user-images.githubusercontent.com/92240385/175208177-e4c975c7-47d3-4504-9836-9c1493b7593f.jpg)
 
-2. **Add a question to quiz:  ** The user is able to choose questions provided by the database of the platform or even  add their own questions to the quiz as well as defining such features as time limits, difficulty level and the plan to calculate the  points specified for each question
+2. **Add a question to quiz:**
+> The user is able to choose questions provided by the database of the platform or even  add their own questions to the quiz as well as defining such features as time limits, difficulty level and the plan to calculate the  points specified for each question
