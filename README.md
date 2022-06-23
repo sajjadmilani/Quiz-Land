@@ -1,5 +1,32 @@
-# Quiz-Land
-A real-time Quiz platform
+
+# Sajjad Milani - Final Project (Quiz Land)
+
+Quiz land is a real-time quiz platform which was originally developed as a final project for full-stack web development course run by the University of Concordia.
+The main aim of the platform is to facilitate learning / teaching process to improve not only educational knowledge but also general information.
+
+## Demo
+You can found the live version here: 
 [Live version](https://quizland-demo.herokuapp.com/)
 
-Will be completed...
+
+## ⚙ Third-party APIs
+
+- [The Trivia API](https://the-trivia-api.com/)
+- [Open Trivia DB](https://opentdb.com/)
+
+
+## 🛠 Tech Stack
+
+**Client:** React, Auth0, Styled-Components
+
+**Server:** Node.js, Socket.io, Express.js
+
+**Database:** MongoDB
+
+
+## 🖥️ Functionality & Features
+
+**Organizer:** The  individual who runs or creates the quiz.
+
+What did you learn while building this project? What challenges did you face and how did you overcome them?
+
