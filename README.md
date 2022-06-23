@@ -26,6 +26,5 @@ These APIs are used to get random questions.
 
 **Organizer:** The  individual who runs or creates the quiz.
 
-![create-quiz fw](https://user-images.githubusercontent.com/92240385/175207647-4358b190-3670-46b9-8665-bc60f372dcda.png)
-
+![create-quiz](https://user-images.githubusercontent.com/92240385/175207806-a72f04ab-2f01-445b-ab81-7676197533ac.jpg)
 
