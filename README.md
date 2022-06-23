@@ -1,6 +1,6 @@
 # Sajjad Milani - Final Project (Quiz Land)
 
-Quiz land is a real-time quiz platform which was originally developed as a final project for full-stack web development course run by the University of Concordia.
+Quiz land is a real-time quiz platform which was originally developed as a final project for full-stack web development course run by the Concordia Bootcamps.
 The main aim of the platform is to facilitate learning / teaching process to improve not only educational knowledge but also general information.
 
 ## Demo
