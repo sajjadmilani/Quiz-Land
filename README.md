@@ -29,6 +29,6 @@ The main aim of the platform is to facilitate learning / teaching process to imp
 
 **Organizer:** The  individual who runs or creates the quiz.
 
-1-Organizers can choose a title for their quiz and then  selecting the category they favor
+1. Organizers can choose a title for their quiz and then  selecting the category they favor
 
 ![create-quiz](https://user-images.githubusercontent.com/92240385/175208177-e4c975c7-47d3-4504-9836-9c1493b7593f.jpg)
