@@ -32,18 +32,15 @@ The main aim of the platform is to facilitate learning / teaching process to imp
 1. **Create a quiz** 
 > Organizers can choose a title for their quiz and then  selecting the category they favor.
 
-![create-quiz](https://user-images.githubusercontent.com/92240385/175212457-e7071e1e-3296-4f41-88fd-cbaa4cea9214.jpg)
-
+![create-quiz](https://user-images.githubusercontent.com/92240385/175216073-7a0f88e9-9a68-4ae9-a07c-71859c811e75.jpg)
 
 2. **Add a question to quiz**
 > The user is able to choose random questions provided by the APIs or even add their own questions to the quiz as well as defining such features as time limits, difficulty level and the plan to calculate the points specified for each question.
-> 
-![add-question](https://user-images.githubusercontent.com/92240385/175212396-fc1a9359-2813-4684-a081-547040778f4b.jpg)
+
+![add-question](https://user-images.githubusercontent.com/92240385/175216132-35341b38-adc7-4dc2-8090-86cfe9846649.jpg)
 
 2. **Run the quiz**
 > After all the questions are added to the quiz, the organizer can “run” the quiz then has to wait for the participant(s) to join in order to “start” the quiz.
-
-![wait-for-join](https://user-images.githubusercontent.com/92240385/175214854-49c66e43-0492-483f-b60f-4c5348a6e712.jpg)
 
 ![wait-for-join](https://user-images.githubusercontent.com/92240385/175215429-c649da97-5a37-4ade-b4ba-38e64780eea2.jpg)
 
