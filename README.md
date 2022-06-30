@@ -52,6 +52,8 @@ The main aim of the platform is to facilitate learning / teaching process to imp
 4.  **Final result**
 > Right after organizer’s click on the ```End Quiz``` , the winner’s name will appear in the middle of the page adorned with colorful confetti.
 
+![Screenshot 2022-06-29 200354](https://user-images.githubusercontent.com/92240385/176565641-e8daae26-d9bb-4051-8d7a-330c8fbfed12.png)
+
 ## ⚡️	Participants Features
 1.	**Choosing name**
 >
